@@ -1,0 +1,14 @@
+{
+    "appName": {
+        "message": "Dynamic Scrollbar",
+        "description": "The name of the react extension."
+    },
+    "appDescription": {
+        "message": "like iOS dynamic island",
+        "description": "The description of the extension."
+    },
+    "btnTooltip": {
+        "message": "Hello, I am a tooltip!",
+        "description": "Tooltip for the button."
+    }
+}

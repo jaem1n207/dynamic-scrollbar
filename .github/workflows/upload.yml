@@ -1,0 +1,62 @@
+name: Upload Built files
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    upload:
+        name: Build and Upload files on Artifact
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 20.10.0
+
+            - uses: pnpm/action-setup@v3
+              name: Install pnpm
+              with:
+                  version: 8
+                  run_install: false
+            - name: Get pnpm store directory
+              shell: bash
+              run: |
+                  echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+            - uses: actions/cache@v3
+              name: Setup pnpm cache
+              with:
+                  path: ${{ env.STORE_PATH }}
+                  key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-pnpm-store-
+
+            - name: Install dependencies
+              run: pnpm install
+
+            - name: Build
+              run: pnpm run upload
+            - name: Uploading Chrome Extension
+              uses: actions/upload-artifact@v4
+              with:
+                  name: chrome
+                  path: dist/chrome
+            - name: Uploading Firefox Extension
+              uses: actions/upload-artifact@v4
+              with:
+                  name: firefox
+                  path: dist/firefox
+            - name: Uploading Opera Extension
+              uses: actions/upload-artifact@v4
+              with:
+                  name: opera
+                  path: dist/opera
+            - name: Uploading Edge Extension
+              uses: actions/upload-artifact@v4
+              with:
+                  name: edge
+                  path: dist/edge

@@ -1,11 +1,15 @@
-declare type EXTMessageType = 'CHANGE_COLOR' | 'CHANGE_NAME';
-
-type EXTMessageData = {
-  CHANGE_COLOR: { color: string };
-  CHANGE_NAME: { name: string };
+declare type ChangeColorMessage = {
+  type: 'CHANGE_COLOR';
+  data: {
+    color: string;
+  };
 };
 
-declare type EXTMessage<T extends EXTMessageType = EXTMessageType> = {
-  type: T;
-  data: EXTMessageData[T];
+declare type HideScrollbarMessage = {
+  type: 'HIDE_SCROLLBAR';
+  data: {
+    url: string | URL;
+  };
 };
+
+declare type EXTMessage = ChangeColorMessage | HideScrollbarMessage;

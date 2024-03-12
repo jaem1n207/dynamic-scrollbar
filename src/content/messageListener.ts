@@ -1,15 +1,15 @@
 import type { Runtime } from 'webextension-polyfill';
 
 export const onRequest = async (
-  msg: EXTMessage<'CHANGE_COLOR'> | EXTMessage<'CHANGE_NAME'>,
+  message: EXTMessage,
   sender: Runtime.SendMessageOptionsType,
 ): Promise<EXTResponse | undefined> => {
   console.log('🚀 ~ sender:', sender);
-  console.log('~~~~~~~', msg);
+  console.log('~~~~~~~', message);
   try {
-    switch (msg.type) {
+    switch (message.type) {
       case 'CHANGE_COLOR': {
-        document.body.style.background = msg?.data?.color;
+        document.body.style.background = message?.data?.color;
         break;
       }
       default:

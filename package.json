@@ -1,6 +1,6 @@
 {
   "name": "dynamic-scrollbar",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "like iOS dynamic island",
   "main": "webpack.config.js",
   "scripts": {

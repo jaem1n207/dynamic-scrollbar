@@ -4,5 +4,5 @@ import Popup from './Popup';
 
 const Index = () => <Popup />;
 
-const root = ReactDOM.createRoot(document.getElementById('display-container')!);
+const root = ReactDOM.createRoot(document.getElementById('dynamic-scrollbar-display-container')!);
 root.render(<Index />);

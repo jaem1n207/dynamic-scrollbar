@@ -1,12 +1,12 @@
-import { ProgressPlugin, DefinePlugin } from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
-import ZipPlugin from 'zip-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import { DefinePlugin, ProgressPlugin } from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import ZipPlugin from 'zip-webpack-plugin';
 
-import path from 'node:path';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
+import path from 'node:path';
 import WebpackExtensionManifestPlugin from 'webpack-extension-manifest-plugin';
 
 const ExtReloader = require('webpack-ext-reloader-mv3');
@@ -225,6 +225,7 @@ export const getResolves = () => {
       types: path.resolve(__dirname, './src/types/'),
       hooks: path.resolve(__dirname, './src/hooks/'),
       '@redux': path.resolve(__dirname, './src/@redux/'),
+      shared: path.resolve(__dirname, './src/shared/'),
     },
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   };

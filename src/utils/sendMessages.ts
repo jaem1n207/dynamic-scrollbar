@@ -3,32 +3,32 @@ import { runtime, tabs, type Runtime, type Tabs } from 'webextension-polyfill';
 /**
  * Send Message to Background Script
  *
- * @param msg
+ * @param message
  * @returns
  */
 export const sendMessage = (
-  msg: EXTMessage,
+  message: EXTMessage,
   options?: Runtime.SendMessageOptionsType,
 ): Promise<EXTResponse> => {
-  return runtime.sendMessage(msg, options);
+  return runtime.sendMessage(message, options);
 };
 
 /**
  * Send Message to Content Script
  */
-export const sendMessageToTab = <T extends EXTMessageType>(
+export const sendMessageToTab = (
   tab: Tabs.Tab,
-  msg: EXTMessage<T>,
+  message: EXTMessage,
   options?: Tabs.SendMessageOptionsType,
 ): Promise<Response> => {
-  return tabs.sendMessage(tab.id as number, msg, options);
+  return tabs.sendMessage(tab.id as number, message, options);
 };
 
 /**
  * Send Message to Content Script
  */
-export const sendMessageToActiveTab = async <T extends EXTMessageType>(
-  msg: EXTMessage<T>,
+export const sendMessageToActiveTab = async (
+  message: EXTMessage,
   options?: Tabs.SendMessageOptionsType,
 ): Promise<Response> => {
   let activeTab: Tabs.Tab;
@@ -39,5 +39,5 @@ export const sendMessageToActiveTab = async <T extends EXTMessageType>(
     console.log('[===== Error in sendMessageToActiveTab =====]', error);
     throw 'Error in sendMessageToActiveTab';
   }
-  return sendMessageToTab(activeTab, msg, options);
+  return sendMessageToTab(activeTab, message, options);
 };

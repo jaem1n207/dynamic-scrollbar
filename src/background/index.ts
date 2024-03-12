@@ -1,4 +1,5 @@
-import { runtime, tabs, type Runtime, type Tabs } from 'webextension-polyfill';
+import { isEdge, isFirefox } from 'shared/platform';
+import { runtime, scripting, tabs, type Runtime, type Tabs } from 'webextension-polyfill';
 
 /**
  * Define background script functions
@@ -51,6 +52,26 @@ class Background {
     try {
       console.log('[===== Received message =====]', message, sender);
       switch (message.type) {
+        case 'HIDE_SCROLLBAR': {
+          const isSafe = await this.detectSafeTabFromUrl(sender.tab?.url);
+          if (!isSafe) break;
+
+          const tabId = sender.tab?.id!;
+          const cssStyle = () => {
+            if (isFirefox) {
+              return 'body { scrollbar-width: none; }';
+            }
+            if (isEdge) {
+              return 'body { -ms-overflow-style: none; }';
+            }
+            return 'body::-webkit - scrollbar { display: none; }';
+          };
+          await scripting.insertCSS({
+            css: cssStyle(),
+            target: { tabId },
+          });
+          break;
+        }
       }
       return true; // result to reply
     } catch (error) {
@@ -62,10 +83,10 @@ class Background {
   /**
    * Message from Long Live Connection
    *
-   * @param msg
+   * @param message
    */
-  onMessageFromExtension = (msg: EXTMessage) => {
-    console.log('[===== Message from Long Live Connection =====]', msg);
+  onMessageFromExtension = (message: EXTMessage) => {
+    console.log('[===== Message from Long Live Connection =====]', message);
   };
 
   /**
@@ -85,6 +106,52 @@ class Background {
    */
   onUpdatedTab = (tabId: number, changeInfo: Tabs.OnUpdatedChangeInfoType, tab: Tabs.Tab) => {
     console.log('[===== Tab Created =====]', tabId, changeInfo, tab);
+  };
+
+  detectSafeTabFromUrl = async (url: string | undefined) => {
+    const googleServices = [
+      'https://accounts.google.com',
+      'https://analytics.google.com/analytics',
+      'https://search.google.com/search-console',
+      'https://chromewebstore.google.com',
+    ];
+    if (isFirefox) {
+      return Boolean(
+        url &&
+          !url.startsWith('about:') &&
+          !url.startsWith('moz') &&
+          !url.startsWith('view-source:') &&
+          !url.startsWith('resource:') &&
+          !url.startsWith('chrome:') &&
+          !url.startsWith('jar:') &&
+          !url.startsWith('https://addons.mozilla.org/') &&
+          !googleServices.some((serviceUrl) => url.startsWith(serviceUrl)),
+      );
+    }
+
+    if (isEdge) {
+      return Boolean(
+        url &&
+          !url.startsWith('chrome') &&
+          !url.startsWith('data') &&
+          !url.startsWith('devtools') &&
+          !url.startsWith('edge') &&
+          !url.startsWith('https://chrome.google.com/webstore') &&
+          !url.startsWith('https://microsoftedge.microsoft.com/addons') &&
+          !url.startsWith('view-source') &&
+          !googleServices.some((serviceUrl) => url.startsWith(serviceUrl)),
+      );
+    }
+
+    return Boolean(
+      url &&
+        !url.startsWith('chrome') &&
+        !url.startsWith('https://chrome.google.com/webstore') &&
+        !url.startsWith('data') &&
+        !url.startsWith('devtools') &&
+        !url.startsWith('view-source') &&
+        !googleServices.some((serviceUrl) => url.startsWith(serviceUrl)),
+    );
   };
 
   /**
@@ -131,9 +198,9 @@ class Background {
   /**
    * send message
    */
-  sendMessage = async (tab: Tabs.Tab, msg: EXTMessage) => {
+  sendMessage = async (tab: Tabs.Tab, message: EXTMessage) => {
     try {
-      const res = await tabs.sendMessage(tab.id ?? 0, msg);
+      const res = await tabs.sendMessage(tab.id ?? 0, message);
       return res;
     } catch (error) {
       console.log('[===== Error in sendMessage =====]', error);

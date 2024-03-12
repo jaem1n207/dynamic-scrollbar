@@ -1,24 +1,36 @@
 {
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaVersion": 2020, // Allows for the parsing of modern ECMAScript features
-        "sourceType": "module", // Allows for the use of imports
-        "ecmaFeatures": {
-            "jsx": true // Allows for the parsing of JSX
-        }
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020, // Allows for the parsing of modern ECMAScript features
+    "sourceType": "module", // Allows for the use of imports
+    "ecmaFeatures": {
+      "jsx": true, // Allows for the parsing of JSX
     },
-    "settings": {
-        "react": {
-            "version": "detect" // Tells eslint-plugin-react to automatically detect the version of React to use
-        }
+  },
+  "settings": {
+    "react": {
+      "version": "detect", // Tells eslint-plugin-react to automatically detect the version of React to use
     },
-    "plugins": ["@typescript-eslint", "prettier"],
-    "rules": {
-        "react/prop-types": [1],
-        "prettier/prettier": [2],
-        "@typescript-eslint/ban-ts-comment": [0],
-        "@typescript-eslint/no-explicit-any": [1],
-        "@typescript-eslint/no-var-requires": [0]
-    },
-    "extends": ["plugin:react/recommended", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"]
+  },
+  "plugins": ["@typescript-eslint", "prettier"],
+  "rules": {
+    "react/prop-types": [1],
+    "prettier/prettier": [
+      "error",
+      {
+        "tabWidth": 2,
+        "semi": true,
+        "singleQuote": true,
+        "printWidth": 100,
+      },
+    ],
+    "@typescript-eslint/ban-ts-comment": [0],
+    "@typescript-eslint/no-explicit-any": [1],
+    "@typescript-eslint/no-var-requires": [0],
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+  ],
 }

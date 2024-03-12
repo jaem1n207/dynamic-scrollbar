@@ -1,6 +1,11 @@
-declare type EXTMessageType = 'CHANGE_COLOR';
+declare type EXTMessageType = 'CHANGE_COLOR' | 'CHANGE_NAME';
 
-declare type EXTMessage<T = any> = {
-    type: EXTMessageType;
-    data?: T;
+type EXTMessageData = {
+  CHANGE_COLOR: { color: string };
+  CHANGE_NAME: { name: string };
+};
+
+declare type EXTMessage<T extends EXTMessageType = EXTMessageType> = {
+  type: T;
+  data: EXTMessageData[T];
 };

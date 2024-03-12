@@ -6,7 +6,6 @@
     "source.fixAll": "explicit"
   },
   "editor.tabSize": 2,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.formatOnType": true,
   "cSpell.words": ["lefthook", "webextension"]

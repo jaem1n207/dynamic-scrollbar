@@ -26,7 +26,6 @@
     "cz": "npx cz"
   },
   "author": "jaemin <roy.jm.lee@gmail.com>",
-  "type": "module",
   "dependencies": {
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",

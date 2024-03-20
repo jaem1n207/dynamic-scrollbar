@@ -58,7 +58,7 @@ let generalConfig: Configuration = {
 let plugins: any = [
   ...getCleanWebpackPlugins(
     `${config.OUTPUT_DIR}/${config.TARGET}`,
-    `${Directories.DIST_DIR}/${config.TARGET}`,
+    `${Directories.RELEASE_DIR}/${config.TARGET}`,
   ),
   ...getProgressPlugins(),
   ...getEslintPlugins(),
@@ -144,7 +144,7 @@ if (config.NODE_ENV === 'production') {
     },
   };
 
-  plugins = [...plugins, ...getZipPlugins(config.TARGET, Directories.DIST_DIR)];
+  plugins = [...plugins, ...getZipPlugins(config.TARGET, Directories.RELEASE_DIR)];
 }
 
 export default [

@@ -33,8 +33,8 @@ interface EnvironmentConfig {
 
 export const Directories = {
   DEV_DIR: 'dev',
-  DIST_DIR: 'dist',
-  TEMP_DIR: 'temp',
+  RELEASE_DIR: 'release',
+  PROD_DIR: 'prod',
   SRC_DIR: 'src',
 };
 
@@ -45,9 +45,9 @@ export const Directories = {
 const EnvConfig: EnvironmentConfig = {
   OUTPUT_DIR:
     process.env.NODE_ENV === 'production'
-      ? Directories.TEMP_DIR
+      ? Directories.PROD_DIR
       : process.env.NODE_ENV === 'upload'
-        ? Directories.DIST_DIR
+        ? Directories.RELEASE_DIR
         : Directories.DEV_DIR,
   ...(process.env.NODE_ENV ? { NODE_ENV: process.env.NODE_ENV } : { NODE_ENV: 'development' }),
   ...(process.env.TARGET ? { TARGET: process.env.TARGET } : { TARGET: 'chrome' }),
@@ -157,7 +157,7 @@ export const getCopyPlugins = (
  * @param outputDir
  * @returns
  */
-export const getZipPlugins = (browserDir: string, outputDir = Directories.DIST_DIR) => {
+export const getZipPlugins = (browserDir: string, outputDir = Directories.RELEASE_DIR) => {
   return [
     new ZipPlugin({
       path: path.resolve(process.cwd(), `${outputDir}/${browserDir}`),

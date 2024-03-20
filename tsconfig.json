@@ -29,5 +29,5 @@
     },
     "typeRoots": ["node_modules/@types", "./src/types"]
   },
-  "exclude": ["dist", "dev", "temp"]
+  "exclude": ["release", "dev", "prod"]
 }

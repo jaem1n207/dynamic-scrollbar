@@ -1,6 +1,7 @@
 node_modules
-dist
+release
 dev
-temp
+prod
 .idea
 .env
+.DS_Store

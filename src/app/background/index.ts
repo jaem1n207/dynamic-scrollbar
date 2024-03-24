@@ -1,4 +1,4 @@
-import { isEdge, isFirefox } from 'shared/platform';
+import { isEdge, isFirefox } from 'shared/lib/platform';
 import { runtime, scripting, tabs, type Runtime, type Tabs } from 'webextension-polyfill';
 
 /**
@@ -56,10 +56,18 @@ class Background {
           const isSafe = await this.detectSafeTabFromUrl(sender.tab?.url);
           if (!isSafe) break;
 
-          // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
           const tabId = sender.tab?.id!;
+          const cssStyle = () => {
+            if (isFirefox) {
+              return 'body { scrollbar-width: none; }';
+            }
+            if (isEdge) {
+              return 'body { -ms-overflow-style: none; }';
+            }
+            return 'body::-webkit - scrollbar { display: none; }';
+          };
           await scripting.insertCSS({
-            css: 'body::-webkit-scrollbar { display: none; }',
+            css: cssStyle(),
             target: { tabId },
           });
           break;

@@ -15,19 +15,13 @@
     "allowUmdGlobalAccess": true,
     "resolveJsonModule": true,
     "paths": {
-      "utils/*": ["./utils/*"],
-      "popup/*": ["./popup/*"],
-      "background/*": ["./background/*"],
-      "options/*": ["./options/*"],
-      "content/*": ["./content/*"],
-      "assets/*": ["./assets/*"],
-      "components/*": ["./components/*"],
-      "types/*": ["./types/*"],
-      "@redux/*": ["./@redux/*"],
-      "@hooks/*": ["./hooks/*"],
+      "pages/*": ["./pages/*"],
+      "widgets/*": ["./widgets/*"],
+      "features/*": ["./features/*"],
+      "entities/*": ["./entities/*"],
       "shared/*": ["./shared/*"]
     },
-    "typeRoots": ["node_modules/@types", "./src/types"]
+    "typeRoots": ["node_modules/@types", "src/shared/types"]
   },
-  "exclude": ["dist", "dev", "temp"]
+  "exclude": ["release", "dev", "prod"]
 }

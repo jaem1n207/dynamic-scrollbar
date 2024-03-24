@@ -44,19 +44,19 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: chrome
-          path: dist/chrome
+          path: release/chrome
       - name: Uploading Firefox Extension
         uses: actions/upload-artifact@v4
         with:
           name: firefox
-          path: dist/firefox
+          path: release/firefox
       - name: Uploading Opera Extension
         uses: actions/upload-artifact@v4
         with:
           name: opera
-          path: dist/opera
+          path: release/opera
       - name: Uploading Edge Extension
         uses: actions/upload-artifact@v4
         with:
           name: edge
-          path: dist/edge
+          path: release/edge

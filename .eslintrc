@@ -24,6 +24,7 @@
         "printWidth": 100,
       },
     ],
+    "@typescript-eslint/no-non-null-asserted-optional-chain": [0],
     "@typescript-eslint/ban-ts-comment": [0],
     "@typescript-eslint/no-explicit-any": [1],
     "@typescript-eslint/no-var-requires": [0],

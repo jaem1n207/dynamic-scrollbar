@@ -1,6 +1,6 @@
-import type { Runtime } from 'webextension-polyfill';
+import { runtime, type Runtime } from 'webextension-polyfill';
 
-export const onRequest = async (
+const messageListener = async (
   message: EXTMessage,
   sender: Runtime.SendMessageOptionsType,
 ): Promise<EXTResponse | undefined> => {
@@ -21,4 +21,6 @@ export const onRequest = async (
   }
 };
 
-export default onRequest;
+export const startListeningContentMessages = (): void => {
+  runtime.onMessage.addListener(messageListener);
+};

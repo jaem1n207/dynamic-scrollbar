@@ -69,13 +69,13 @@ export const getHTMLPlugins = (
   new HtmlWebpackPlugin({
     title: 'Popup',
     filename: path.resolve(__dirname, `${outputDir}/${browserDir}/popup/index.html`),
-    template: path.resolve(__dirname, `${sourceDir}/popup/index.html`),
+    template: path.resolve(__dirname, `${sourceDir}/app/popup/index.html`),
     chunks: ['popup'],
   }),
   new HtmlWebpackPlugin({
     title: 'Options',
     filename: path.resolve(__dirname, `${outputDir}/${browserDir}/options/index.html`),
-    template: path.resolve(__dirname, `${sourceDir}/options/index.html`),
+    template: path.resolve(__dirname, `${sourceDir}/app/options/index.html`),
     chunks: ['options'],
   }),
 ];
@@ -114,10 +114,10 @@ export const getOutput = (browserDir: string, outputDir = Directories.DEV_DIR) =
  */
 export const getEntry = (sourceDir = Directories.SRC_DIR) => {
   return {
-    popup: [path.resolve(__dirname, `${sourceDir}/popup/index.tsx`)],
-    options: [path.resolve(__dirname, `${sourceDir}/options/options.tsx`)],
-    content: [path.resolve(__dirname, `${sourceDir}/content/index.tsx`)],
-    background: [path.resolve(__dirname, `${sourceDir}/background/index.ts`)],
+    popup: [path.resolve(__dirname, `${sourceDir}/app/popup/index.tsx`)],
+    options: [path.resolve(__dirname, `${sourceDir}/app/options/options.tsx`)],
+    content: [path.resolve(__dirname, `${sourceDir}/app/content/index.tsx`)],
+    background: [path.resolve(__dirname, `${sourceDir}/app/background/index.ts`)],
   };
 };
 
@@ -138,11 +138,11 @@ export const getCopyPlugins = (
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, `${sourceDir}/assets`),
+          from: path.resolve(__dirname, `${sourceDir}/shared/assets`),
           to: path.resolve(__dirname, `${outputDir}/${browserDir}/assets`),
         },
         {
-          from: path.resolve(__dirname, `${sourceDir}/_locales`),
+          from: path.resolve(__dirname, `${sourceDir}/shared/_locales`),
           to: path.resolve(__dirname, `${outputDir}/${browserDir}/_locales`),
         },
       ],
@@ -215,16 +215,10 @@ export const getCleanWebpackPlugins = (...dirs: string[]) => {
 export const getResolves = () => {
   return {
     alias: {
-      utils: path.resolve(__dirname, './src/utils/'),
-      popup: path.resolve(__dirname, './src/popup/'),
-      background: path.resolve(__dirname, './src/background/'),
-      options: path.resolve(__dirname, './src/options/'),
-      content: path.resolve(__dirname, './src/content/'),
-      assets: path.resolve(__dirname, './src/assets/'),
-      components: path.resolve(__dirname, './src/components/'),
-      types: path.resolve(__dirname, './src/types/'),
-      hooks: path.resolve(__dirname, './src/hooks/'),
-      '@redux': path.resolve(__dirname, './src/@redux/'),
+      pages: path.resolve(__dirname, './src/pages/'),
+      widgets: path.resolve(__dirname, './src/widgets/'),
+      features: path.resolve(__dirname, './src/features/'),
+      entities: path.resolve(__dirname, './src/entities/'),
       shared: path.resolve(__dirname, './src/shared/'),
     },
     extensions: ['.js', '.jsx', '.ts', '.tsx'],

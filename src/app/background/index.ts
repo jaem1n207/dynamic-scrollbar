@@ -1,4 +1,4 @@
-import { isEdge, isFirefox } from 'shared/platform';
+import { isEdge, isFirefox } from 'shared/lib/platform';
 import { runtime, scripting, tabs, type Runtime, type Tabs } from 'webextension-polyfill';
 
 /**

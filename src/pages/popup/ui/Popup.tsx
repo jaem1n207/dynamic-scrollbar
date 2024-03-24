@@ -1,6 +1,7 @@
 import React from 'react';
-import Button from 'components/Button';
-import { sendMessageToActiveTab } from 'utils/sendMessages';
+
+import { sendMessageToActiveTab } from 'shared/lib/send-messages';
+import Button from 'shared/ui/Button';
 
 function setGreen() {
   sendMessageToActiveTab({ type: 'CHANGE_COLOR', data: { color: 'green' } });
@@ -16,5 +17,3 @@ export const Popup = () => (
     <Button label="red" action={setRed} />
   </div>
 );
-
-export default Popup;

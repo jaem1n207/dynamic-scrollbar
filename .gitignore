@@ -4,3 +4,4 @@ dev
 prod
 .idea
 .env
+.DS_Store

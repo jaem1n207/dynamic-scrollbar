@@ -6,7 +6,7 @@ import { runtime, scripting, tabs, type Runtime, type Tabs } from 'webextension-
  * @type {class}
  */
 class Background {
-  _port: number;
+  _port: number = 0;
   constructor() {
     this.init();
   }

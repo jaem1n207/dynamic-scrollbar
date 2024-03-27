@@ -4,13 +4,16 @@
     "strictNullChecks": true,
     "noImplicitThis": true,
     "baseUrl": "./src",
+    "strict": true,
+    "noUnusedLocals": true,
     "esModuleInterop": true,
-    "module": "commonjs",
-    "target": "es5",
-    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "module": "CommonJS",
+    "target": "ES2016",
     "jsx": "react",
     "sourceMap": true,
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,
     "allowUmdGlobalAccess": true,
     "resolveJsonModule": true,
@@ -23,5 +26,5 @@
     },
     "typeRoots": ["node_modules/@types", "src/shared/types"]
   },
-  "exclude": ["release", "dev", "prod"]
+  "exclude": ["release", "dev", "prod", "commitlint.config.mjs"]
 }

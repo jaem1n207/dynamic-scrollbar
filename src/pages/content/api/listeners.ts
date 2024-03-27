@@ -22,5 +22,6 @@ const messageListener = async (
 };
 
 export const startListeningContentMessages = (): void => {
-  runtime.onMessage.addListener(messageListener);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  runtime.onMessage.addListener(messageListener as any);
 };

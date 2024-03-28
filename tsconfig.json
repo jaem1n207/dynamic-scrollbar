@@ -4,6 +4,8 @@
     "strictNullChecks": true,
     "noImplicitThis": true,
     "baseUrl": "./src",
+    "strict": true,
+    "noUnusedLocals": true,
     "esModuleInterop": true,
     "module": "CommonJS",
     "moduleResolution": "Node",
@@ -23,5 +25,5 @@
     },
     "typeRoots": ["node_modules/@types", "src/shared/types"]
   },
-  "exclude": ["release", "dev", "prod"]
+  "exclude": ["release", "dev", "prod", "commitlint.config.mjs"]
 }

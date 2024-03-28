@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { sendMessageToActiveTab } from 'shared/lib/send-messages';
 import Button from 'shared/ui/Button';
 

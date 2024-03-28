@@ -1,5 +1,3 @@
-import React from 'react';
-
 export function Content() {
   return (
     <div className="dynamic-scrollbar-content">

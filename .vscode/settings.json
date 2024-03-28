@@ -8,5 +8,5 @@
   "editor.tabSize": 2,
   "editor.formatOnSave": true,
   "editor.formatOnType": true,
-  "cSpell.words": ["lefthook", "webextension"]
+  "cSpell.words": ["esno", "lefthook", "webextension"]
 }

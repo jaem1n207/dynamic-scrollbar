@@ -5,3 +5,4 @@ prod
 .idea
 .env
 .DS_Store
+src/manifest.json

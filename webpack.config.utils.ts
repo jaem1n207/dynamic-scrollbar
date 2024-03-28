@@ -1,47 +1,32 @@
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
+import ESLintPlugin from 'eslint-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { DefinePlugin, ProgressPlugin } from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import WebpackExtensionManifestPlugin from 'webpack-extension-manifest-plugin';
 import ZipPlugin from 'zip-webpack-plugin';
 
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import ESLintPlugin from 'eslint-webpack-plugin';
+import { spawnSync } from 'node:child_process';
 import path from 'node:path';
-import WebpackExtensionManifestPlugin from 'webpack-extension-manifest-plugin';
 
 const ExtReloader = require('webpack-ext-reloader-mv3');
-
-const baseManifestChrome = require('./src/baseManifest_chrome.json');
-const baseManifestFirefox = require('./src/baseManifest_firefox.json');
-const baseManifestOpera = require('./src/baseManifest_opera.json');
-const baseManifestEdge = require('./src/baseManifest_edge.json');
-
-const baseManifest = {
-  chrome: baseManifestChrome,
-  firefox: baseManifestFirefox,
-  opera: baseManifestOpera,
-  edge: baseManifestEdge,
-};
 
 const dotenv = require('dotenv').config({ path: `${__dirname}/.env` });
 
 interface EnvironmentConfig {
-  NODE_ENV: string;
-  OUTPUT_DIR: string;
-  TARGET: string;
+  NODE_ENV: 'development' | 'profile' | 'production' | 'upload';
+  OUTPUT_DIR: 'dev' | 'release' | 'prod' | 'src';
+  TARGET: 'chrome' | 'firefox' | 'opera' | 'edge';
 }
 
-export const Directories = {
+export const Directories: Record<string, EnvironmentConfig['OUTPUT_DIR']> = {
   DEV_DIR: 'dev',
   RELEASE_DIR: 'release',
   PROD_DIR: 'prod',
   SRC_DIR: 'src',
 };
 
-/**
- * Environment Config
- *
- */
 const EnvConfig: EnvironmentConfig = {
   OUTPUT_DIR:
     process.env.NODE_ENV === 'production'
@@ -49,18 +34,14 @@ const EnvConfig: EnvironmentConfig = {
       : process.env.NODE_ENV === 'upload'
         ? Directories.RELEASE_DIR
         : Directories.DEV_DIR,
-  ...(process.env.NODE_ENV ? { NODE_ENV: process.env.NODE_ENV } : { NODE_ENV: 'development' }),
-  ...(process.env.TARGET ? { TARGET: process.env.TARGET } : { TARGET: 'chrome' }),
+  ...(process.env.NODE_ENV
+    ? { NODE_ENV: process.env.NODE_ENV as EnvironmentConfig['NODE_ENV'] }
+    : { NODE_ENV: 'development' }),
+  ...(process.env.TARGET
+    ? { TARGET: process.env.TARGET as EnvironmentConfig['TARGET'] }
+    : { TARGET: 'chrome' }),
 };
 
-/**
- * Get HTML Plugins
- *
- * @param browserDir
- * @param outputDir
- * @param sourceDir
- * @returns
- */
 export const getHTMLPlugins = (
   browserDir: string,
   outputDir = Directories.DEV_DIR,
@@ -80,25 +61,12 @@ export const getHTMLPlugins = (
   }),
 ];
 
-/**
- * Get DefinePlugins
- *
- * @param config
- * @returns
- */
 export const getDefinePlugins = (config = {}) => [
   new DefinePlugin({
     'process.env': JSON.stringify({ ...config, ...(dotenv.parsed ?? {}) }),
   }),
 ];
 
-/**
- * Get Output Configurations
- *
- * @param browserDir
- * @param outputDir
- * @returns
- */
 export const getOutput = (browserDir: string, outputDir = Directories.DEV_DIR) => {
   return {
     path: path.resolve(process.cwd(), `${outputDir}/${browserDir}`),
@@ -106,12 +74,6 @@ export const getOutput = (browserDir: string, outputDir = Directories.DEV_DIR) =
   };
 };
 
-/**
- * Get Entry Points
- *
- * @param sourceDir
- * @returns
- */
 export const getEntry = (sourceDir = Directories.SRC_DIR) => {
   return {
     popup: [path.resolve(__dirname, `${sourceDir}/app/popup/index.tsx`)],
@@ -121,14 +83,6 @@ export const getEntry = (sourceDir = Directories.SRC_DIR) => {
   };
 };
 
-/**
- * Get CopyPlugins
- *
- * @param browserDir
- * @param outputDir
- * @param sourceDir
- * @returns
- */
 export const getCopyPlugins = (
   browserDir: string,
   outputDir = Directories.DEV_DIR,
@@ -150,13 +104,6 @@ export const getCopyPlugins = (
   ];
 };
 
-/**
- * Get ZipPlugins
- *
- * @param browserDir
- * @param outputDir
- * @returns
- */
 export const getZipPlugins = (browserDir: string, outputDir = Directories.RELEASE_DIR) => {
   return [
     new ZipPlugin({
@@ -176,11 +123,6 @@ export const getZipPlugins = (browserDir: string, outputDir = Directories.RELEAS
   ];
 };
 
-/**
- * Get Analyzer Plugins
- *
- * @returns
- */
 export const getAnalyzerPlugins = () => {
   return [
     new BundleAnalyzerPlugin({
@@ -189,12 +131,6 @@ export const getAnalyzerPlugins = () => {
   ];
 };
 
-/**
- * Get CleanWebpackPlugins
- *
- * @param dirs
- * @returns
- */
 export const getCleanWebpackPlugins = (...dirs: string[]) => {
   return [
     new CleanWebpackPlugin({
@@ -207,11 +143,6 @@ export const getCleanWebpackPlugins = (...dirs: string[]) => {
   ];
 };
 
-/**
- * Get Resolves
- *
- * @returns
- */
 export const getResolves = () => {
   return {
     alias: {
@@ -225,16 +156,17 @@ export const getResolves = () => {
   };
 };
 
-/**
- * Get Extension Manifest Plugins
- *
- * @returns
- */
 export const getExtensionManifestPlugins = () => {
+  spawnSync('esno', ['./src/manifest.ts'], { stdio: 'inherit' });
+  const manifest = require('./src/manifest.json');
+
   return [
     new WebpackExtensionManifestPlugin({
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      config: { base: (baseManifest as any)[EnvConfig.TARGET] },
+      config: {
+        base: manifest as unknown as {
+          [k: string]: unknown;
+        },
+      },
     }),
   ];
 };
@@ -243,35 +175,16 @@ export const eslintOptions = {
   fix: true,
 };
 
-/**
- * Get Eslint Plugins
- *
- * @returns
- */
 export const getEslintPlugins = (options = eslintOptions) => {
   return [new ESLintPlugin(options)];
 };
 
-/**
- * Get Progress Plugins
- *
- * @returns
- */
 export const getProgressPlugins = () => {
   return [new ProgressPlugin()];
 };
 
-/**
- * Environment Configuration Variables
- *
- */
 export const config = EnvConfig;
 
-/**
- * Get Extension Reloader Plugin
- *
- * @returns
- */
 export const getExtensionReloaderPlugins = () => {
   return [
     new ExtReloader({

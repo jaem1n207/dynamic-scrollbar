@@ -1,7 +1,7 @@
 {
   "name": "dynamic-scrollbar",
   "version": "0.0.1",
-  "description": "like iOS dynamic island",
+  "description": "This extension transforms the traditional scrollbar into an interactive scrollbar that allows you to monitor background activity. Enjoy a game-changing experience as the scrollbar seamlessly morphs into different shapes, allowing you to stay informed without any distractions.",
   "main": "webpack.config.js",
   "author": "jaemin <roy.jm.lee@gmail.com>",
   "scripts": {

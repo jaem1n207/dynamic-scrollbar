@@ -152,7 +152,7 @@ export const getResolves = () => {
       entities: path.resolve(__dirname, './src/entities/'),
       shared: path.resolve(__dirname, './src/shared/'),
     },
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    extensions: ['.ts', '.tsx', '.js'],
   };
 };
 

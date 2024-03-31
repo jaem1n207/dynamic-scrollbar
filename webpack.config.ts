@@ -25,7 +25,7 @@ let generalConfig: Configuration = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx|ts|tsx)$/,
+        test: /\.tsx?$/,
         use: [
           {
             loader: 'ts-loader',

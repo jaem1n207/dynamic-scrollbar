@@ -2,7 +2,7 @@ import type { Manifest } from 'webextension-polyfill';
 
 import { processLog } from 'shared/lib/log';
 import type PkgType from '../package.json';
-import { config } from '../webpack.config.utils';
+import { config } from '../webpack.config.utils.js';
 import { rootPath } from './scripts.utils';
 import { readJSON, writeJSON } from './shared/lib/node-utils';
 
@@ -20,7 +20,7 @@ export const getManifest = async () => {
 
   const manifest: Manifest.WebExtensionManifest = {
     manifest_version: 3,
-    name: pkg.name,
+    name: '__MSG_appName__',
     author: pkg.author,
     version: pkg.version,
     description: pkg.description,
@@ -86,8 +86,8 @@ export const getManifest = async () => {
   }
 
   if (config.NODE_ENV === 'development') {
-    manifest.name = `(Debug) ${pkg.name}`;
-    manifest.version = '1';
+    manifest.name = `(Debug) __MSG_appName__`;
+    manifest.version = '0.0.1';
   }
 
   validateManifest(manifest);
@@ -103,8 +103,5 @@ const writeManifest = async () => {
 };
 
 (async () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  await writeManifest().catch((error: any) => {
-    processLog('ERROR', error);
-  });
+  await writeManifest();
 })();

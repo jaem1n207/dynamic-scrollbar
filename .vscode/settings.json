@@ -1,12 +1,13 @@
 {
-  "[markdown]": {
-    "editor.formatOnSave": false
-  },
-  "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit"
-  },
+  "cSpell.words": ["esno", "iconify", "lefthook", "svgr", "webext", "webextension"],
+  "typescript.tsdk": "node_modules/typescript/lib",
   "editor.tabSize": 2,
   "editor.formatOnSave": true,
   "editor.formatOnType": true,
-  "cSpell.words": ["esno", "lefthook", "webextension"]
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "files.associations": {
+    "*.css": "postcss"
+  }
 }

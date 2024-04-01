@@ -1,38 +1,22 @@
 {
   "compilerOptions": {
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "noImplicitThis": true,
-    "baseUrl": "./src",
+    "baseUrl": ".",
+    "incremental": false,
+    "lib": ["DOM", "ESNext"],
+    "jsx": "react-jsx",
+    "target": "es2016",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "paths": {
+      "~/*": ["src/*"]
+    },
+    "resolveJsonModule": true,
     "strict": true,
     "noUnusedLocals": true,
     "esModuleInterop": true,
-    "lib": ["ES2017", "ESNext", "DOM"],
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "target": "ES2017",
-    "allowJs": true,
-    "jsx": "react-jsx",
-    "sourceMap": true,
-    "allowSyntheticDefaultImports": true,
-    "allowUmdGlobalAccess": true,
-    "resolveJsonModule": true,
-    "paths": {
-      "pages/*": ["./pages/*"],
-      "widgets/*": ["./widgets/*"],
-      "features/*": ["./features/*"],
-      "entities/*": ["./entities/*"],
-      "shared/*": ["./shared/*"]
-    },
-    "typeRoots": ["node_modules/@types", "src/shared/types"]
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "types": ["vite/client", "unplugin-icons/types/react"]
   },
-  "exclude": ["release", "dev", "prod", "commitlint.config.mjs"],
-  "ts-node": {
-    "esm": true,
-    "compilerOptions": {
-      // https://bobbyhadz.com/blog/typescript-uncaught-referenceerror-exports-is-not-defined#nodejs---referenceerror-exports-is-not-defined
-      // https://webpack.js.org/guides/ecma-script-modules/#flagging-modules-as-esm
-      "module": "CommonJS"
-    }
-  }
+  "exclude": ["dist", "node_modules"]
 }

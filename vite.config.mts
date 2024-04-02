@@ -59,6 +59,7 @@ export default defineConfig(({ command }) => ({
     hmr: {
       host: 'localhost',
     },
+    origin: `http://localhost:${port}`,
   },
   build: {
     watch: isDev ? {} : undefined,

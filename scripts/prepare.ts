@@ -1,8 +1,8 @@
 // generate stub index.html files for dev entry
+import chokidar from 'chokidar';
+import fs from 'fs-extra';
 import { execSync } from 'node:child_process';
 import path from 'node:path';
-import fs from 'fs-extra';
-import chokidar from 'chokidar';
 import { isDev, log, port, r } from './utils';
 
 /**

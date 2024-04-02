@@ -39,7 +39,7 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: pnpm run pack
+        run: pnpm run build && pnpm run pack
       - name: Uploading Chrome Browser Extension
         uses: actions/upload-artifact@v4
         with:

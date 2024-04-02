@@ -1,107 +1,59 @@
+import fs from 'fs-extra';
 import type { Manifest } from 'webextension-polyfill';
-
-import { processLog } from 'shared/lib/log';
 import type PkgType from '../package.json';
-import { config } from '../webpack.config.utils.js';
-import { rootPath } from './scripts.utils';
-import { readJSON, writeJSON } from './shared/lib/node-utils';
+import { isDev, isFirefox, r } from '../scripts/utils';
 
-const validateManifest = (manifest: Manifest.WebExtensionManifest) => {
-  if (!manifest.name) {
-    throw new Error('Manifest must have a name');
-  }
-  if (!manifest.version) {
-    throw new Error('Manifest must have a version');
-  }
-};
+export async function getManifest(): Promise<Manifest.WebExtensionManifest> {
+  const pkg = (await fs.readJSON(r('package.json'))) as typeof PkgType;
 
-export const getManifest = async () => {
-  const pkg = await readJSON<typeof PkgType>(rootPath('package.json'));
-
+  // update this file to update this manifest.json
   const manifest: Manifest.WebExtensionManifest = {
     manifest_version: 3,
-    name: '__MSG_appName__',
-    author: pkg.author,
+    name: pkg.displayName || pkg.name,
     version: pkg.version,
     description: pkg.description,
-    icons: {
-      16: 'assets/icons/icon-16.png',
-      24: 'assets/icons/icon-24.png',
-      48: 'assets/icons/icon-48.png',
-      64: 'assets/icons/icon-64.png',
-      128: 'assets/icons/icon-128.png',
+    action: {
+      default_icon: './assets/icon-512.png',
+      default_popup: './dist/popup/index.html',
     },
-    default_locale: 'en',
+    options_ui: {
+      page: './dist/options/index.html',
+      open_in_tab: true,
+    },
+    background: isFirefox
+      ? {
+          scripts: ['dist/background/index.mjs'],
+          type: 'module',
+        }
+      : {
+          service_worker: './dist/background/index.mjs',
+        },
+    icons: {
+      16: './assets/icon-512.png',
+      48: './assets/icon-512.png',
+      128: './assets/icon-512.png',
+    },
+    permissions: ['tabs', 'storage', 'activeTab'],
+    host_permissions: ['*://*/*'],
     content_scripts: [
       {
         matches: ['<all_urls>'],
-        js: ['content/content.js'],
+        js: ['dist/contentScripts/index.global.js'],
       },
     ],
-    background: {
-      service_worker: 'background/background.js',
-    },
-    permissions: ['tabs', 'storage', 'scripting'],
-    host_permissions: ['http://*/*', 'https://*/*'],
-    options_ui: {
-      page: 'options/index.html',
-      open_in_tab: true,
-    },
-    action: {
-      default_icon: {
-        16: 'assets/icons/icon-16.png',
-        48: 'assets/icons/icon-48.png',
-      },
-      default_title: pkg.name,
-      default_popup: 'popup/index.html',
-    },
     web_accessible_resources: [
       {
-        resources: ['assets/*', 'content/*', 'options/*', 'popup/*', 'background/*'],
+        resources: ['dist/contentScripts/style.css', 'dist/sidebar/index.html'],
         matches: ['<all_urls>'],
       },
     ],
+    content_security_policy: {
+      extension_pages: isDev
+        ? // this is required on dev for Vite script to load
+          "script-src 'self' http://localhost:${port}; object-src 'self'"
+        : "script-src 'self'; object-src 'self'",
+    },
   };
 
-  if (config.TARGET === 'firefox') {
-    manifest.browser_specific_settings = {
-      gecko: {
-        id: 'addon@dynamic-scrollbar.org',
-      },
-    };
-    manifest.background = {
-      scripts: ['background/background.js'],
-      type: 'module',
-    };
-    manifest.options_ui = {
-      page: manifest.options_ui?.page || 'options/index.html',
-      // its not support in MV3: https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/options_ui#syntax
-      browser_style: false,
-    };
-  } else {
-    manifest.background = {
-      service_worker: 'background/background.js',
-    };
-    delete manifest.options_ui?.browser_style;
-  }
-
-  if (config.NODE_ENV === 'development') {
-    manifest.name = `(Debug) __MSG_appName__`;
-    manifest.version = '0.0.1';
-  }
-
-  validateManifest(manifest);
-
-  processLog('PRE', `write ${config.TARGET} manifest.json`);
-
   return manifest;
-};
-
-const writeManifest = async () => {
-  const manifest = await getManifest();
-  await writeJSON(rootPath('src/manifest.json'), manifest as unknown as Record<string, unknown>);
-};
-
-(async () => {
-  await writeManifest();
-})();
+}

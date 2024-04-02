@@ -39,24 +39,16 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: pnpm run upload
-      - name: Uploading Chrome Extension
+        run: pnpm run pack
+      - name: Uploading Chrome Browser Extension
         uses: actions/upload-artifact@v4
         with:
-          name: chrome
-          path: release/chrome
-      - name: Uploading Firefox Extension
+          path: extension.crx
+      - name: Uploading Firefox Browser Extension
         uses: actions/upload-artifact@v4
         with:
-          name: firefox
-          path: release/firefox
-      - name: Uploading Opera Extension
+          path: extension.xpi
+      - name: Uploading Edge, Opera and other Browser Extension (except Safari)
         uses: actions/upload-artifact@v4
         with:
-          name: opera
-          path: release/opera
-      - name: Uploading Edge Extension
-        uses: actions/upload-artifact@v4
-        with:
-          name: edge
-          path: release/edge
+          path: extension.zip

@@ -43,12 +43,15 @@ jobs:
       - name: Uploading Chrome Browser Extension
         uses: actions/upload-artifact@v4
         with:
+          name: chrome
           path: extension.crx
       - name: Uploading Firefox Browser Extension
         uses: actions/upload-artifact@v4
         with:
+          name: firefox
           path: extension.xpi
       - name: Uploading Edge, Opera and other Browser Extension (except Safari)
         uses: actions/upload-artifact@v4
         with:
+          name: other
           path: extension.zip

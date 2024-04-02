@@ -1,3 +1,4 @@
+import browser from 'webextension-polyfill';
 import { onMessage, sendMessage } from 'webext-bridge/background';
 import type { Tabs } from 'webextension-polyfill';
 

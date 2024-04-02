@@ -1,3 +1,5 @@
+import browser from 'webextension-polyfill';
+
 import Logo from '~/components/Logo';
 import { useStorageDemo } from '~/logic/storage';
 

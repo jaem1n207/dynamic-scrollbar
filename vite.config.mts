@@ -24,12 +24,7 @@ export const sharedConfig: UserConfig = {
   plugins: [
     React(),
     AutoImport({
-      imports: [
-        'react',
-        {
-          'webextension-polyfill': [['*', 'browser']],
-        },
-      ],
+      imports: ['react'],
       dts: r('src/auto-imports.d.ts'),
     }),
     // https://github.com/antfu/unplugin-icons

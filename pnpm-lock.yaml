@@ -74,6 +74,9 @@ devDependencies:
   cz-git:
     specifier: ^1.9.1
     version: 1.9.1
+  czg:
+    specifier: ^1.9.1
+    version: 1.9.1
   eslint:
     specifier: ^8.57.0
     version: 8.57.0
@@ -3317,6 +3320,12 @@ packages:
   /cz-git@1.9.1:
     resolution: {integrity: sha512-GK3EI5R7GApS8u+g9QPvy/50z0NiG7ijc1NASxZaDnQn0ARzr73MjZb3Lt4cZQvKJBd8GrfvOWqHgwMQQ/OlaA==}
     engines: {node: '>=v12.20.0'}
+    dev: true
+
+  /czg@1.9.1:
+    resolution: {integrity: sha512-0+vLv7QkoY+YNpGrPjyw6SPqvaOlqQsNJqSI3SC2oh5jNDjMrw2VEWBUg/8j/GZWmn1zCR2ssA8yAG9WK7A5sA==}
+    engines: {node: '>=v12.20.0'}
+    hasBin: true
     dev: true
 
   /dargs@8.1.0:

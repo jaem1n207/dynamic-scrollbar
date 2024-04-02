@@ -42,13 +42,8 @@
     "lint": "eslint --cache 'src/**/*.{json,ts,tsx}'",
     "format": "prettier --write ./src",
     "typecheck": "tsc --noEmit",
-    "cz": "git-cz",
+    "cz": "czg",
     "postinstall": "simple-git-hooks"
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-git"
-    }
   },
   "devDependencies": {
     "@commitlint/cli": "^19.2.1",
@@ -74,6 +69,7 @@
     "cross-env": "^7.0.3",
     "crx": "^5.0.1",
     "cz-git": "^1.9.1",
+    "czg": "^1.9.1",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react": "^7.34.1",

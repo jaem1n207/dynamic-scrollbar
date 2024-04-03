@@ -1,16 +1,17 @@
 import fs from 'fs-extra';
 import type { Manifest } from 'webextension-polyfill';
 import type PkgType from '../package.json';
-import { isDev, isFirefox, r } from '../scripts/utils';
+import { isDev, isFirefox, port, r } from '../scripts/utils';
 
 export async function getManifest(): Promise<Manifest.WebExtensionManifest> {
   const pkg = (await fs.readJSON(r('package.json'))) as typeof PkgType;
+  const pkgName = pkg.displayName || pkg.name;
 
   // update this file to update this manifest.json
   const manifest: Manifest.WebExtensionManifest = {
     manifest_version: 3,
-    name: pkg.displayName || pkg.name,
-    version: pkg.version,
+    name: isDev ? `(Debug) ${pkgName}` : pkgName,
+    version: isDev ? '0.0.1' : pkg.version,
     description: pkg.description,
     action: {
       default_icon: './assets/icon-512.png',
@@ -34,7 +35,7 @@ export async function getManifest(): Promise<Manifest.WebExtensionManifest> {
       128: './assets/icon-512.png',
     },
     permissions: ['tabs', 'storage', 'activeTab'],
-    host_permissions: ['*://*/*'],
+    host_permissions: ['<all_urls>'],
     content_scripts: [
       {
         matches: ['<all_urls>'],
@@ -50,7 +51,7 @@ export async function getManifest(): Promise<Manifest.WebExtensionManifest> {
     content_security_policy: {
       extension_pages: isDev
         ? // this is required on dev for Vite script to load
-          "script-src 'self' http://localhost:${port}; object-src 'self'"
+          `script-src 'self' http://localhost:${port}; object-src 'self'`
         : "script-src 'self'; object-src 'self'",
     },
   };

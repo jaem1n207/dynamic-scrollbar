@@ -7,6 +7,7 @@ import AutoImport from 'unplugin-auto-import/vite';
 import Icons from 'unplugin-icons/vite';
 import type { UserConfig } from 'vite';
 import { defineConfig } from 'vite';
+
 import packageJson from './package.json';
 import { isDev, port, r } from './scripts/utils';
 
@@ -23,12 +24,12 @@ export const sharedConfig: UserConfig = {
   },
   plugins: [
     React(),
+    Icons({ compiler: 'jsx', jsx: 'react' }),
     AutoImport({
       imports: ['react'],
       dts: r('src/auto-imports.d.ts'),
     }),
     // https://github.com/antfu/unplugin-icons
-    Icons({ compiler: 'jsx', jsx: 'react' }),
     // https://github.com/unocss/unocss
     UnoCSS(),
     // rewrite assets to use relative path

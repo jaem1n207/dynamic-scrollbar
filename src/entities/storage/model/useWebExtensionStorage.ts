@@ -1,10 +1,10 @@
 import { type Storage, storage } from 'webextension-polyfill';
 import { z } from 'zod';
 
-interface StorageMap {
+type StorageMap = {
   'webext-demo': string;
   theme: 'light' | 'dark' | 'purple';
-}
+};
 
 const storageMapSchema = z.object({
   'webext-demo': z.string(),

@@ -1,7 +1,7 @@
 import browser from 'webextension-polyfill';
 
 import Logo from '~/components/Logo';
-import { useStorageDemo } from '~/logic/storage';
+import { useStorageDemo } from '~/entities/storage';
 
 const openOptionsPage = () => {
   browser.runtime.openOptionsPage();

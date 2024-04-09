@@ -1,4 +1,4 @@
-import { useStorageDemo } from '~/logic';
+import { useStorageDemo } from '~/entities/storage';
 import IconSliders from '~icons/pixelarticons/sliders';
 import IconZap from '~icons/pixelarticons/zap';
 

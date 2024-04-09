@@ -1,5 +1,5 @@
 import Logo from '~/components/Logo';
-import { useStorageDemo } from '~/logic';
+import { useStorageDemo } from '~/entities/storage';
 
 const Sidebar = () => {
   const [storageDemo] = useStorageDemo();

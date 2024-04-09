@@ -1,4 +1,15 @@
 import { type Storage, storage } from 'webextension-polyfill';
+import { z } from 'zod';
+
+interface StorageMap {
+  'webext-demo': string;
+  theme: 'light' | 'dark' | 'purple';
+}
+
+const storageMapSchema = z.object({
+  'webext-demo': z.string(),
+  theme: z.union([z.literal('light'), z.literal('dark'), z.literal('purple')]),
+});
 
 type WebExtensionStorageOptions = {
   listenToStorageChanges?: boolean;
@@ -27,9 +38,9 @@ const storageLocalInterface: StorageLikeAsync = {
   },
 };
 
-export const useWebExtensionStorageLocal = <T>(
-  key: string,
-  initialValue: T,
+export const useWebExtensionStorageLocal = <K extends keyof StorageMap>(
+  key: K,
+  initialValue: StorageMap[K],
   options: WebExtensionStorageOptions = {},
 ) => {
   const {
@@ -40,7 +51,7 @@ export const useWebExtensionStorageLocal = <T>(
     },
   } = options;
 
-  const [storedValue, setStoredValue] = useState<T>(initialValue);
+  const [storedValue, setStoredValue] = useState(initialValue);
 
   useEffect(() => {
     let isMounted = true;
@@ -77,9 +88,11 @@ export const useWebExtensionStorageLocal = <T>(
     }
   }, [initialValue, key, listenToStorageChanges, onError, writeDefaults]);
 
-  const setValue = async (newValue: T) => {
+  const setValue = async (newValue: StorageMap[K]) => {
     try {
-      const stringValue = JSON.stringify(newValue);
+      const validatedValue = storageMapSchema.shape[key].parse(newValue);
+
+      const stringValue = JSON.stringify(validatedValue);
       await storageLocalInterface.setItem(key, stringValue);
       setStoredValue(newValue);
     } catch (error) {

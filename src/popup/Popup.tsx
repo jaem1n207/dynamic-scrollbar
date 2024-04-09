@@ -3,10 +3,6 @@ import browser from 'webextension-polyfill';
 import Logo from '~/components/Logo';
 import { useStorageDemo } from '~/entities/storage';
 
-const openOptionsPage = () => {
-  browser.runtime.openOptionsPage();
-};
-
 const Popup = () => {
   const [storageDemo] = useStorageDemo();
 
@@ -15,7 +11,7 @@ const Popup = () => {
       <Logo />
       <div>Popup</div>
       <p className="mt-2 opacity-50">This is the popup page</p>
-      <button className="btn mt-2" onClick={openOptionsPage}>
+      <button className="btn mt-2" onClick={browser.runtime.openOptionsPage}>
         Open Options
       </button>
       <div className="mt-2">

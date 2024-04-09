@@ -2,6 +2,7 @@ import browser from 'webextension-polyfill';
 
 import Logo from '~/components/Logo';
 import { useStorageDemo } from '~/entities/storage';
+import { Timer } from '~/features/timer';
 
 const openOptionsPage = () => {
   browser.runtime.openOptionsPage();
@@ -21,6 +22,7 @@ const Popup = () => {
       <div className="mt-2">
         <span className="opacity-50">Storage: {storageDemo}</span>
       </div>
+      <Timer />
     </main>
   );
 };

@@ -1,5 +1,6 @@
 import { useAppStore } from '~/entities/app';
 import { useTimerApp } from '~/features/timer';
+import { getTranslation } from '~/shared/i18n/getTranslation';
 
 export const Timer = () => {
   const timerApp = useTimerApp();
@@ -17,7 +18,7 @@ export const Timer = () => {
 
   return (
     <div>
-      <h1>Timer App</h1>
+      <h1>{getTranslation('timerAppName')} App</h1>
       <div>
         {simplifiedView}
         {timerApp.feature()}

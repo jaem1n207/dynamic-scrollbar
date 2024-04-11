@@ -20,15 +20,6 @@ export type App = {
   validateStatus: (status: any) => AppStatus;
 };
 
-export type AppState = {
-  apps: App[];
-  registerApp: (app: App) => void;
-  unregisterApp: (appKey: string) => void;
-  lastUsedAppKey: string | null;
-  setLastUsedAppKey: (appKey: string | null) => void;
-  getSimplifiedView: () => JSX.Element | null;
-};
-
 export const AppStatusSchema = z.object({
   isActive: z.boolean(),
   lastUsed: z.date(),

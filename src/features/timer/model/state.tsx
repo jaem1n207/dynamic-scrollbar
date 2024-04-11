@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 import { type App, type AppStatus, AppStatusSchema } from '~/entities/app';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const validateTimerStatus = (status: any): AppStatus => {
   return AppStatusSchema.parse(status);
 };
@@ -19,7 +18,6 @@ export const useTimerApp = (): App => {
     return <div>Remaining Time: 00:00</div>;
   }, []);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const validateStatus = useCallback((status: any) => {
     return validateTimerStatus(status);
   }, []);

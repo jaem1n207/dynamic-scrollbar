@@ -1,15 +1,6 @@
 import { create } from 'zustand';
 
-import type { App } from './types';
-
-interface AppState {
-  apps: App[];
-  registerApp: (app: App) => void;
-  unregisterApp: (appKey: string) => void;
-  lastUsedAppKey: string | null;
-  setLastUsedAppKey: (appKey: string | null) => void;
-  getSimplifiedView: () => JSX.Element | null;
-}
+import type { AppState } from './types';
 
 export const useAppStore = create<AppState>((set, get) => ({
   apps: [],

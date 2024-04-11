@@ -27,7 +27,7 @@ export const sharedConfig: UserConfig = {
     Icons({ compiler: 'jsx', jsx: 'react' }),
     AutoImport({
       imports: ['react'],
-      dts: r('src/types/auto-imports.d.ts'),
+      dts: r('src/auto-imports.d.ts'),
     }),
     // https://github.com/antfu/unplugin-icons
     // https://github.com/unocss/unocss

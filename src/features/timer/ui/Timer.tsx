@@ -4,13 +4,14 @@ import { useTimerApp } from '~/features/timer';
 export const Timer = () => {
   const timerApp = useTimerApp();
 
-  const { registerApp, getSimplifiedView } = useAppStore();
+  const { registerApp, unregisterApp, getSimplifiedView } = useAppStore();
 
   useEffect(() => {
+    console.log(timerApp);
     registerApp(timerApp);
-    // FIXME: 컴포넌트가 언마운트될 때 타이머 앱을 등록 해제하는 로직도 추가하기
-    // return () => unregisterApp(timerApp.key);
-  }, [registerApp, timerApp]);
+    return () => unregisterApp(timerApp.key);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [registerApp, unregisterApp]);
 
   const simplifiedView = getSimplifiedView();
 
@@ -18,9 +19,9 @@ export const Timer = () => {
     <div>
       <h1>Timer App</h1>
       <div>
+        {simplifiedView}
         {timerApp.feature()}
         {timerApp.detailView()}
-        {simplifiedView}
       </div>
     </div>
   );

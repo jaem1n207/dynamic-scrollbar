@@ -1,13 +1,5 @@
 import { z } from 'zod';
 
-export const AppStatusSchema = z.object({
-  isActive: z.boolean(),
-  lastUsed: z.date(),
-  progress: z.string(),
-});
-
-export type AppStatus = z.infer<typeof AppStatusSchema>;
-
 export type App = {
   key: string;
   /**
@@ -25,6 +17,22 @@ export type App = {
   /**
    * 상태의 유효성을 검사하는 메소드
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   validateStatus: (status: any) => AppStatus;
 };
+
+export type AppState = {
+  apps: App[];
+  registerApp: (app: App) => void;
+  unregisterApp: (appKey: string) => void;
+  lastUsedAppKey: string | null;
+  setLastUsedAppKey: (appKey: string | null) => void;
+  getSimplifiedView: () => JSX.Element | null;
+};
+
+export const AppStatusSchema = z.object({
+  isActive: z.boolean(),
+  lastUsed: z.date(),
+  progress: z.string(),
+});
+
+export type AppStatus = z.infer<typeof AppStatusSchema>;

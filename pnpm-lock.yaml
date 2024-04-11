@@ -151,6 +151,9 @@ devDependencies:
   webextension-polyfill:
     specifier: ^0.10.0
     version: 0.10.0
+  zod-error:
+    specifier: ^1.5.0
+    version: 1.5.0
 
 packages:
 
@@ -8062,9 +8065,14 @@ packages:
       readable-stream: 3.6.2
     dev: true
 
+  /zod-error@1.5.0:
+    resolution: {integrity: sha512-zzopKZ/skI9iXpqCEPj+iLCKl9b88E43ehcU+sbRoHuwGd9F1IDVGQ70TyO6kmfiRL1g4IXkjsXK+g1gLYl4WQ==}
+    dependencies:
+      zod: 3.22.4
+    dev: true
+
   /zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
-    dev: false
 
   /zustand@4.5.2(@types/react@18.2.73)(react@18.2.0):
     resolution: {integrity: sha512-2cN1tPkDVkwCy5ickKrI7vijSjPksFRfqS6237NzT0vqSsztTNnQdHw9mmN7uBdk3gceVXU0a+21jFzFzAc9+g==}

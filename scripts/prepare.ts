@@ -3,6 +3,7 @@ import chokidar from 'chokidar';
 import fs from 'fs-extra';
 import { execSync } from 'node:child_process';
 import path from 'node:path';
+
 import { isDev, log, port, r } from './utils';
 
 /**
@@ -15,7 +16,10 @@ async function stubIndexHtml() {
     await fs.ensureDir(r(`extension/dist/${view}`));
     let data = await fs.readFile(r(`src/${view}/index.html`), 'utf-8');
     data = data
-      .replace('</head>', '<script type="module" src="/dist/refreshPreamble.js"></script></head>')
+      .replace(
+        '</head>',
+        '<script type="module" src="/dist/refreshPreamble.js"></script><script type="module" src="/dist/themeSync.js"></script></head>',
+      )
       .replace('"./main.tsx"', `"http://localhost:${port}/${view}/main.tsx"`)
       .replace('<div id="app"></div>', '<div id="app">Vite server did not start</div>');
     await fs.writeFile(r(`extension/dist/${view}/index.html`), data, 'utf-8');
@@ -37,11 +41,28 @@ async function writeRefreshPreamble() {
   await fs.writeFile(path.join(r('extension/dist/'), 'refreshPreamble.js'), data, 'utf-8');
 }
 
+async function writeThemeSyncScript() {
+  const data = `var e = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches,
+  t = localStorage.getItem('use-dark') || 'system';
+('"dark"' === t || (e && '"light"' !== t)) && document.documentElement.classList.toggle('dark', !0);
+
+var currentColor = localStorage.getItem('currentColor') || '"neutral"';
+var currentRadius = localStorage.getItem('currentRadius') || '0.5';
+document.body.classList.add(\`theme-\${currentColor.slice(1, -1)}\`);
+document.body.style.setProperty('--radius', \`\${currentRadius}rem\`);
+`;
+
+  await fs.ensureDir(r('extension/dist'));
+  await fs.writeFile(r('extension/dist/themeSync.js'), data, 'utf-8');
+  log('PRE', 'write theme settings script');
+}
+
 function writeManifest() {
   execSync('npx esno ./scripts/manifest.ts', { stdio: 'inherit' });
 }
 
 writeManifest();
+writeThemeSyncScript();
 
 if (isDev) {
   writeRefreshPreamble();

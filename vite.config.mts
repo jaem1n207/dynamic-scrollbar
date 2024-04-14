@@ -38,7 +38,12 @@ export const sharedConfig: UserConfig = {
       enforce: 'post',
       apply: 'build',
       transformIndexHtml(html, { path }) {
-        return html.replace(/"\/assets\//g, `"${relative(dirname(path), '/assets')}/`);
+        html.replace(/"\/assets\//g, `"${relative(dirname(path), '/assets')}/`);
+        html = html.replace(
+          '</head>',
+          '<script type="module" crossorigin src="/dist/themeSync.js"></script></head>',
+        );
+        return html;
       },
     },
   ],

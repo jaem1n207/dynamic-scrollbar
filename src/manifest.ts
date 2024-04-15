@@ -56,5 +56,14 @@ export async function getManifest(): Promise<Manifest.WebExtensionManifest> {
     },
   };
 
+  if (isFirefox) {
+    manifest.browser_specific_settings = {
+      gecko: {
+        id: 'addon@localhost',
+        strict_min_version: '91.0',
+      },
+    };
+  }
+
   return manifest;
 }

@@ -26,7 +26,7 @@ export const sharedConfig: UserConfig = {
     React(),
     Icons({ compiler: 'jsx', jsx: 'react' }),
     AutoImport({
-      imports: ['react'],
+      imports: ['react', 'ahooks'],
       dts: r('src/auto-imports.d.ts'),
     }),
     // https://github.com/antfu/unplugin-icons

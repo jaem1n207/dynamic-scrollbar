@@ -21,7 +21,7 @@ export default function App({ frameUrl }: { frameUrl: string }) {
       </div>
       {openedOnce && (
         <div
-          className={`fixed top-0 right-0 h-full w-1/4 z-50 bg-white drop-shadow-xl transition-transform ${
+          className={`fixed top-0 right-0 h-full w-1/4 z-50 drop-shadow-xl transition-transform ${
             open ? 'translate-x-0' : 'translate-x-full'
           }`}
         >

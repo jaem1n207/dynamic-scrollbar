@@ -1,9 +1,9 @@
 import browser from 'webextension-polyfill';
 
 import Logo from '~/components/Logo';
+import { AppearanceSwitch, ThemeSwitch } from '~/features/theme';
 import { Timer } from '~/features/timer';
 import { Button } from '~/shared/ui';
-import { ThemeSwitch } from '~/shared/ui/theme-switch';
 
 const openOptionsPage = () => {
   browser.runtime.openOptionsPage();
@@ -11,7 +11,7 @@ const openOptionsPage = () => {
 
 const Popup = () => {
   return (
-    <main className="w-[300px] px-4 py-5 text-center text-gray-700">
+    <main className="w-[300px] px-4 py-5 text-center">
       <Logo />
       <div>Popup</div>
       <p className="mt-2 opacity-50">This is the popup page</p>
@@ -19,6 +19,7 @@ const Popup = () => {
         Open Options
       </Button>
       <ThemeSwitch />
+      <AppearanceSwitch />
       <Timer />
     </main>
   );

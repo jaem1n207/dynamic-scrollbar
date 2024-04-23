@@ -43,13 +43,13 @@ async function writeRefreshPreamble() {
 
 async function writeThemeSyncScript() {
   const data = `var e = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches,
-  t = localStorage.getItem('use-dark') || 'system';
+  t = localStorage.getItem('theme') || 'system';
 ('"dark"' === t || (e && '"light"' !== t)) && document.documentElement.classList.toggle('dark', !0);
 
-var currentColor = localStorage.getItem('currentColor') || '"neutral"';
-var currentRadius = localStorage.getItem('currentRadius') || '0.5';
-document.body.classList.add(\`theme-\${currentColor.slice(1, -1)}\`);
-document.body.style.setProperty('--radius', \`\${currentRadius}rem\`);
+var configItem = localStorage.getItem('config');
+var { theme = 'neutral', radius = 0.5 } = configItem ? JSON.parse(configItem) : {};
+document.body.classList.add(\`theme-\${theme}\`);
+document.body.style.setProperty('--radius', \`\${radius}rem\`);
 `;
 
   await fs.ensureDir(r('extension/dist'));

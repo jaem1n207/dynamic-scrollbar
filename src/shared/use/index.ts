@@ -1,3 +1,4 @@
+export { useInterval } from './use-interval';
 export {
   useWebExtensionStorageLocal,
   useWebExtensionStorageSync,

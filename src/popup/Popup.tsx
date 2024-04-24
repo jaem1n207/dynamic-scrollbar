@@ -1,7 +1,6 @@
 import browser from 'webextension-polyfill';
 
 import Logo from '~/components/Logo';
-import { AppearanceSwitch, ThemeSwitch } from '~/features/theme';
 import { Timer } from '~/features/timer';
 import { Button } from '~/shared/ui';
 
@@ -18,8 +17,6 @@ const Popup = () => {
       <Button size="sm" onClick={openOptionsPage}>
         Open Options
       </Button>
-      <ThemeSwitch />
-      <AppearanceSwitch />
       <Timer />
     </main>
   );

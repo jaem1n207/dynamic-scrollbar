@@ -3,7 +3,7 @@
   "description": "This extension transforms the traditional scrollbar into an interactive scrollbar that allows you to monitor background activity. Enjoy a game-changing experience as the scrollbar seamlessly morphs into different shapes, allowing you to stay informed without any distractions.",
   "displayName": "Dynamic Scrollbar",
   "version": "0.0.1",
-  "packageManager": "pnpm@9.0.5",
+  "packageManager": "pnpm@9.0.6",
   "author": "jaemin <roy.jm.lee@gmail.com>",
   "repository": {
     "type": "git",
@@ -111,9 +111,11 @@
     "pre-commit": "pnpm lint-staged"
   },
   "lint-staged": {
-    "*.{css,html,json,md,scss,js,ts,tsx}": [
-      "prettier --write",
-      "git add"
+    "*.{js,ts,tsx}": [
+      "prettier --write"
+    ],
+    "*.{md,mdx,yml,yaml,css}": [
+      "prettier --write"
     ]
   }
 }

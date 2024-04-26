@@ -1,14 +1,14 @@
-const MEDIA = '(prefers-color-scheme: dark)';
+const QUERY = '(prefers-color-scheme: dark)';
 
 const subscribeSystemDark = (onStoreChange: () => void) => {
-  const mediaQuery = window.matchMedia(MEDIA);
+  const mediaQuery = window.matchMedia(QUERY);
   mediaQuery.addEventListener('change', onStoreChange);
 
   return () => mediaQuery.removeEventListener('change', onStoreChange);
 };
 
 const getSystemDarkSnapshot = () => {
-  return window.matchMedia(MEDIA).matches;
+  return window.matchMedia(QUERY).matches;
 };
 
 const getServerSnapshot = () => {

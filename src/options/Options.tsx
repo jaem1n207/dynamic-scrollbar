@@ -5,7 +5,7 @@ import IconZap from '~icons/pixelarticons/zap';
 
 const Options = () => {
   return (
-    <main className="px-4 py-10 text-center">
+    <main className="px-4 py-10 text-center transition-colors">
       <IconSliders className="icon-btn mx-2 text-2xl" />
       <div>Options</div>
       <p className="mt-2 opacity-50">This is the options page</p>

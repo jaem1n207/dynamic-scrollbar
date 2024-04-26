@@ -1,5 +1,5 @@
 import { useDark } from '~/entities/theme';
-import { themes } from '~/features/theme/consts/themes';
+import { themes } from '~/features/theme/const/themes';
 import { cn } from '~/shared/lib/utils';
 import { Button, Label } from '~/shared/ui';
 import CheckIcon from '~icons/lucide/check';
@@ -67,7 +67,7 @@ export const ThemeCustomizer = () => {
               className={cn('justify-start', isActive && 'border-2 border-primary')}
               style={
                 {
-                  '--theme-primary': `hsl(${theme?.activeColor[isDark ? 'dark' : 'light']})`,
+                  '--theme-primary': `hsl(${theme.activeColor[isDark ? 'dark' : 'light']})`,
                 } as React.CSSProperties
               }
             >

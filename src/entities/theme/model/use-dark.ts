@@ -1,28 +1,28 @@
-import type { Options, Theme } from '~/entities/theme/lib';
-import { isDarkMode, mergeDefaultOptions } from '~/entities/theme/lib';
+import { useThemeStore } from '~/entities/theme';
 import { useSystemDark } from '~/entities/theme/model/use-system-dark';
+import type { Theme } from '~/entities/theme/types';
 
-export const useDark = (options?: Options) => {
-  const { storageKey } = mergeDefaultOptions(options);
+const isDarkMode = (theme?: Theme | null, isSystemDark?: boolean | null) => {
+  return theme === 'dark' || (!!isSystemDark && theme !== 'light');
+};
 
-  const [theme, setTheme] = useLocalStorageState<Theme>(storageKey, {
-    defaultValue: 'system',
-  });
+export const useDark = () => {
+  const theme = useThemeStore((state) => state.theme);
+  const toggleTheme = useThemeStore((state) => state.toggleTheme);
   const isSystemDark = useSystemDark();
+
+  useEffect(() => {
+    useThemeStore.setState({ isSystemDark });
+  }, [isSystemDark]);
 
   const isDark = useMemo(() => isDarkMode(theme, isSystemDark), [theme, isSystemDark]);
 
-  const toggleDark = () => {
-    theme === 'system' ? setTheme(isSystemDark ? 'light' : 'dark') : setTheme('system');
-  };
-
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDark);
-
     if ((theme === 'dark' && isSystemDark) || (theme === 'light' && !isSystemDark)) {
-      setTheme('system');
+      toggleTheme();
     }
-  }, [isDark, isSystemDark, setTheme, theme]);
+  }, [isDark, theme, isSystemDark, toggleTheme]);
 
-  return { isDark, toggleDark };
+  return { isDark, toggleTheme };
 };

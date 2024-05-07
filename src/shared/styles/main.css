@@ -19,10 +19,3 @@ h4 {
 p {
   @apply text-pretty;
 }
-
-.icon-btn {
-  @apply inline-block cursor-pointer select-none
-    opacity-75 transition duration-200 ease-in-out
-    hover:opacity-100 hover:text-teal-600;
-  font-size: 0.9em;
-}

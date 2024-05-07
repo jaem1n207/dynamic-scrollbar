@@ -40,6 +40,21 @@ const storageSyncInterface: StorageLikeAsync = {
   },
 };
 
+const prepareSyncStorage = async (value: string) => {
+  const bytesInUse = await storage.sync.getBytesInUse();
+  const newValueSize = new TextEncoder().encode(JSON.stringify(value)).length;
+  const totalSize = bytesInUse + newValueSize;
+
+  if (newValueSize > 8192) {
+    throw new Error('The item size exceeds the maximum limit of 8,192 bytes.');
+  }
+  if (totalSize > 102400) {
+    throw new Error('Storing the item would exceed the total storage limit of 102,400 bytes.');
+  }
+
+  return value;
+};
+
 export const useWebExtensionStorageLocal = <T>(
   key: string,
   initialValue: T,
@@ -156,7 +171,8 @@ export const useWebExtensionStorageSync = <T>(
   const setValue = async (newValue: T) => {
     try {
       const stringValue = JSON.stringify(newValue);
-      await storageSyncInterface.setItem(key, stringValue);
+      const preparedValue = await prepareSyncStorage(stringValue);
+      await storageSyncInterface.setItem(key, preparedValue);
       setStoredValue(newValue);
     } catch (error) {
       onError(error);

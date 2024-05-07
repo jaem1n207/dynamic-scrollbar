@@ -39,6 +39,7 @@
     "test:e2e": "playwright test",
     "--------------------------------tools-----------------------------": "",
     "clear": "rimraf --glob extension/dist extension/manifest.json extension.*",
+    "clean": "find . -type f -name 'vite.config.*.timestamp-*' -ls -delete 2>/dev/null",
     "lint": "eslint --cache 'src/**/*.{json,ts,tsx}'",
     "format": "prettier --write ./src",
     "typecheck": "tsc --noEmit",

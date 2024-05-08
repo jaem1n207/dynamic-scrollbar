@@ -27,6 +27,11 @@ async function stubIndexHtml() {
   }
 }
 
+async function copyLocaleFolder() {
+  await fs.copy(r('src/shared/i18n/_locales'), r('extension/_locales'));
+  log('PRE', 'copy _locales');
+}
+
 // This enables hot module reloading
 async function writeRefreshPreamble() {
   const data = `
@@ -128,6 +133,7 @@ function writeManifest() {
 }
 
 writeManifest();
+copyLocaleFolder();
 dynamicLoadScript();
 writeThemeSyncScript();
 writePrefersReducedMotionScript();

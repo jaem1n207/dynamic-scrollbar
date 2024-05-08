@@ -13,6 +13,7 @@ export async function getManifest(): Promise<Manifest.WebExtensionManifest> {
     name: isDev ? `(Debug) ${pkgName}` : pkgName,
     version: isDev ? '0.0.1' : pkg.version,
     description: pkg.description,
+    default_locale: 'en',
     action: {
       default_icon: './assets/icon-512.png',
       default_popup: './dist/popup/index.html',

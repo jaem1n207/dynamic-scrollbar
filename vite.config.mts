@@ -26,7 +26,7 @@ export const sharedConfig: UserConfig = {
     React(),
     Icons({ compiler: 'jsx', jsx: 'react' }),
     AutoImport({
-      imports: ['react'],
+      imports: ['react', 'ahooks'],
       dts: r('src/auto-imports.d.ts'),
     }),
     // https://github.com/antfu/unplugin-icons
@@ -38,7 +38,12 @@ export const sharedConfig: UserConfig = {
       enforce: 'post',
       apply: 'build',
       transformIndexHtml(html, { path }) {
-        return html.replace(/"\/assets\//g, `"${relative(dirname(path), '/assets')}/`);
+        html.replace(/"\/assets\//g, `"${relative(dirname(path), '/assets')}/`);
+        html = html.replace(
+          '</head>',
+          '<script type="module" crossorigin src="/dist/themeSync.js"></script></head>',
+        );
+        return html;
       },
     },
   ],

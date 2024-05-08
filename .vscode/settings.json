@@ -1,5 +1,15 @@
 {
-  "cSpell.words": ["esno", "iconify", "lefthook", "svgr", "webext", "webextension"],
+  "cSpell.words": [
+    "ahooks",
+    "Customizer",
+    "esno",
+    "iconify",
+    "lefthook",
+    "svgr",
+    "webext",
+    "webextension",
+    "zustand"
+  ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "editor.tabSize": 2,
   "editor.formatOnSave": true,

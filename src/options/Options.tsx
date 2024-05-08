@@ -1,26 +1,36 @@
-import { useStorageDemo } from '~/logic';
-import IconSliders from '~icons/pixelarticons/sliders';
-import IconZap from '~icons/pixelarticons/zap';
+import { AppearanceSwitch } from '~/features/theme';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/shared/ui';
+import { Title } from '~/shared/ui/typography';
+import { OptionsHeader } from '~/widgets/header';
+import { ThemeCustomizer } from '~/widgets/theme';
 
 const Options = () => {
-  const [storageDemo, setStorageDemo] = useStorageDemo();
-
   return (
-    <main className="px-4 py-10 text-center text-gray-700 dark:text-gray-200">
-      <IconSliders className="icon-btn mx-2 text-2xl" />
-      <div>Options</div>
-      <p className="mt-2 opacity-50">This is the options page</p>
-
-      <input
-        value={storageDemo}
-        onChange={(ev) => setStorageDemo(ev.target.value)}
-        className="border border-gray-400 rounded px-2 py-1 mt-2"
-      />
-
-      <div className="mt-4 flex items-center">
-        Powered by Vite <IconZap className="align-middle" />
-      </div>
-    </main>
+    <div className="relative flex min-h-screen flex-col bg-background">
+      <OptionsHeader />
+      <main className="flex-1">
+        <div className="container relative">
+          <section className="mx-auto py-2 max-w-screen-lg flex flex-col items-center gap-2 md:pb-8 lg:pb-20">
+            <Title size="h1" className="text-center">
+              Dynamic Scrollbar Options
+            </Title>
+          </section>
+        </div>
+        <Tabs defaultValue="account" className="w-[400px]">
+          <TabsList>
+            <TabsTrigger value="account">Account</TabsTrigger>
+            <TabsTrigger value="password">Password</TabsTrigger>
+          </TabsList>
+          <TabsContent value="account">
+            <>
+              <ThemeCustomizer />
+              <AppearanceSwitch />
+            </>
+          </TabsContent>
+          <TabsContent value="password">Change your password here.</TabsContent>
+        </Tabs>
+      </main>
+    </div>
   );
 };
 

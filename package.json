@@ -3,7 +3,7 @@
   "description": "This extension transforms the traditional scrollbar into an interactive scrollbar that allows you to monitor background activity. Enjoy a game-changing experience as the scrollbar seamlessly morphs into different shapes, allowing you to stay informed without any distractions.",
   "displayName": "Dynamic Scrollbar",
   "version": "0.0.1",
-  "packageManager": "pnpm@8.15.4",
+  "packageManager": "pnpm@9.0.6",
   "author": "jaemin <roy.jm.lee@gmail.com>",
   "repository": {
     "type": "git",
@@ -39,6 +39,7 @@
     "test:e2e": "playwright test",
     "--------------------------------tools-----------------------------": "",
     "clear": "rimraf --glob extension/dist extension/manifest.json extension.*",
+    "clean": "find . -type f -name 'vite.config.*.timestamp-*' -ls -delete 2>/dev/null",
     "lint": "eslint --cache 'src/**/*.{json,ts,tsx}'",
     "format": "prettier --write ./src",
     "typecheck": "tsc --noEmit",
@@ -46,8 +47,20 @@
     "postinstall": "simple-git-hooks"
   },
   "dependencies": {
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-tabs": "^1.0.4",
+    "@radix-ui/react-tooltip": "^1.0.7",
+    "ahooks": "^3.7.11",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "lucide-react": "^0.368.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "string-ts": "^2.1.1",
+    "tailwind-merge": "^2.2.2",
+    "zod": "^3.22.4",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@ffflorian/jszip-cli": "^3.6.2",
@@ -70,6 +83,7 @@
     "cross-env": "^7.0.3",
     "crx": "^5.0.1",
     "czg": "^1.9.1",
+    "esbuild": "^0.20.2",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react": "^7.34.1",
@@ -87,21 +101,26 @@
     "typescript": "^5.4.3",
     "typescript-eslint": "^7.5.0",
     "unocss": "0.58.5",
+    "unocss-preset-animations": "^1.0.2",
+    "unocss-preset-shadcn": "^0.2.3",
     "unplugin-auto-import": "^0.17.5",
     "unplugin-icons": "^0.18.5",
     "vite": "^5.2.7",
     "vitest": "^1.4.0",
     "web-ext": "^7.11.0",
     "webext-bridge": "^6.0.1",
-    "webextension-polyfill": "^0.10.0"
+    "webextension-polyfill": "^0.10.0",
+    "zod-error": "^1.5.0"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
   },
   "lint-staged": {
-    "*.{css,html,json,md,scss,js,ts,tsx}": [
-      "prettier --write",
-      "git add"
+    "*.{js,ts,tsx}": [
+      "prettier --write"
+    ],
+    "*.{md,mdx,yml,yaml,css}": [
+      "prettier --write"
     ]
   }
 }

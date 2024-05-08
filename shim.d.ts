@@ -3,7 +3,7 @@ import type { ProtocolWithReturn } from 'webext-bridge';
 
 declare module 'react' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface HTMLAttributes<T> extends AttributifyAttributes {}
+  interface HTMLAttributes<T> extends Omit<AttributifyAttributes, 'size'> {}
 }
 
 declare module 'webext-bridge' {

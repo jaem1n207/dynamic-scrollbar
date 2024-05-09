@@ -14,3 +14,13 @@ declare module 'webext-bridge' {
     'get-current-tab': ProtocolWithReturn<{ tabId: number }, { title?: string }>;
   }
 }
+
+declare global {
+  interface Document {
+    /**
+     * 비표준 기능을 사용합니다.
+     * @see https://developer.mozilla.org/docs/Web/API/Document/startViewTransition
+     */
+    startViewTransition?: (callback: () => void) => void;
+  }
+}

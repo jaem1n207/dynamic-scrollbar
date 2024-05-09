@@ -3,14 +3,14 @@ import { createRoot } from 'react-dom/client';
 
 import '~/shared/styles';
 import { TooltipProvider } from '~/shared/ui';
-import App from './Options';
+import { Options } from './options';
 
 const container = document.getElementById('app');
 const root = createRoot(container!);
 root.render(
   <StrictMode>
     <TooltipProvider>
-      <App />
+      <Options />
     </TooltipProvider>
   </StrictMode>,
 );

@@ -49,12 +49,17 @@ async function writeRefreshPreamble() {
 
 async function writeThemeSyncScript() {
   const data = `
-    var e = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark').matches,
-    t = JSON.parse(localStorage.theme).state.theme || 'system';
-    ('dark' === t || (e && 'light' !== t)) && document.documentElement.classList.toggle('dark', !0);
+    var e = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var themeItem = localStorage.getItem('theme');
+    var t = themeItem ? JSON.parse(themeItem).state.theme : 'system';
+    if ('dark' === t || (e && 'light' !== t)) {
+      document.documentElement.classList.toggle('dark', true);
+    }
 
+    var DEFAULT_CONFIG = { theme: 'neutral', radius: 0.5 };
     var configItem = localStorage.getItem('config');
-    var { theme, radius } = configItem ? JSON.parse(configItem) : {theme: 'neutral', radius: 0.5};
+    var config = configItem ? JSON.parse(configItem) : DEFAULT_CONFIG;
+    var { theme, radius } = config;
     document.body.classList.add(\`theme-\${theme}\`);
     document.body.style.setProperty('--radius', \`\${radius}rem\`);
   `;

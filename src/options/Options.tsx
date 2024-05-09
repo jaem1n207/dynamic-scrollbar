@@ -1,12 +1,11 @@
-import { AppearanceSwitch } from '~/features/theme';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/shared/ui';
 import { Title } from '~/shared/ui/typography';
 import { OptionsHeader } from '~/widgets/header';
 import { ThemeCustomizer } from '~/widgets/theme';
 
-const Options = () => {
+export const Options = () => {
   return (
-    <div className="relative flex min-h-screen flex-col bg-background">
+    <div className="relative flex min-h-screen flex-col bg-background text-base">
       <OptionsHeader />
       <main className="flex-1">
         <div className="container relative">
@@ -15,23 +14,20 @@ const Options = () => {
               Dynamic Scrollbar Options
             </Title>
           </section>
-        </div>
-        <Tabs defaultValue="account" className="w-[400px]">
-          <TabsList>
-            <TabsTrigger value="account">Account</TabsTrigger>
-            <TabsTrigger value="password">Password</TabsTrigger>
-          </TabsList>
-          <TabsContent value="account">
-            <>
+          <Tabs defaultValue="theme">
+            <TabsList>
+              <TabsTrigger value="theme">theme</TabsTrigger>
+              <TabsTrigger disabled value="applications">
+                applications
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="theme" className="max-w-lg">
               <ThemeCustomizer />
-              <AppearanceSwitch />
-            </>
-          </TabsContent>
-          <TabsContent value="password">Change your password here.</TabsContent>
-        </Tabs>
+            </TabsContent>
+            <TabsContent value="applications">Hello Applcation!</TabsContent>
+          </Tabs>
+        </div>
       </main>
     </div>
   );
 };
-
-export default Options;

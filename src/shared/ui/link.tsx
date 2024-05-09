@@ -7,7 +7,7 @@ const linkVariants = cva('select-none interactive-focus-ring transition-color', 
   variants: {
     variant: {
       default: 'color-foreground/60 hover:color-foreground/100',
-      primary: 'color-primary/85 hover:color-primary/100',
+      primary: 'color-primary/90 hover:color-primary/100',
     },
   },
   defaultVariants: {

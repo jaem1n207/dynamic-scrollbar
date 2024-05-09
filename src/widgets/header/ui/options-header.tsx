@@ -1,3 +1,4 @@
+import { AppearanceSwitch } from '~/features/theme';
 import { siteConfig } from '~/shared/const/site';
 import { Button, Link, Tooltip, TooltipContent, TooltipTrigger } from '~/shared/ui';
 import { Paragraph } from '~/shared/ui/typography';
@@ -76,7 +77,7 @@ export const OptionsHeader = () => {
     >
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <MainNav />
-        <div className="flex flex-1 items-center justify-end">
+        <div className="flex-1 flex-row-3">
           <nav className="flex items-center">
             <Button
               variant="ghost"
@@ -85,6 +86,7 @@ export const OptionsHeader = () => {
             >
               <IconGithub className="size-5" />
             </Button>
+            <AppearanceSwitch />
           </nav>
         </div>
       </div>

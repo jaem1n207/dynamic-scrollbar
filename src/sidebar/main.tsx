@@ -2,7 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 
 import '~/shared/styles';
-import App from './Sidebar';
+import App from './sidebar';
 
 const container = document.getElementById('app');
 const root = createRoot(container!);

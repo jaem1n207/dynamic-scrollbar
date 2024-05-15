@@ -8,6 +8,7 @@ const linkVariants = cva('select-none interactive-focus-ring transition-color', 
     variant: {
       default: 'color-foreground/60 hover:color-foreground/100',
       primary: 'color-primary/90 hover:color-primary/100',
+      icon: 'opacity-75 hover:opacity-100 hover:color-primary/90',
     },
   },
   defaultVariants: {
@@ -55,10 +56,12 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
       <a
         className={cn(
           {
-            'pointer-events-none opacity-50': disabled,
             'flex items-center space-x-1 leading-tight': prefixEl || suffixEl,
           },
           linkVariants({ variant, className }),
+          {
+            'pointer-events-none opacity-50': disabled,
+          },
         )}
         ref={ref}
         disabled={disabled}

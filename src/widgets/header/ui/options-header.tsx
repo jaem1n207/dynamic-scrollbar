@@ -31,9 +31,10 @@ const MainNav = () => {
         <Tooltip>
           <TooltipTrigger>
             <Link
+              variant="icon"
               external
               href={siteConfig.links.github.readme}
-              prefixEl={<IconBookOpenOutline className="size-4" />}
+              prefixEl={<IconBookOpenOutline />}
             >
               <span>Documentation</span>
             </Link>
@@ -43,9 +44,10 @@ const MainNav = () => {
         <Tooltip>
           <TooltipTrigger>
             <Link
+              variant="icon"
               external
               href={siteConfig.links.github.issues}
-              prefixEl={<IconGitIssue className="size-4" />}
+              prefixEl={<IconGitIssue />}
             >
               <span>Report Issue</span>
             </Link>
@@ -55,9 +57,10 @@ const MainNav = () => {
         <Tooltip>
           <TooltipTrigger>
             <Link
+              variant="icon"
               disabled
               href={siteConfig.links.github.changeLog}
-              prefixEl={<IconTextDocumentEdit className="size-4" />}
+              prefixEl={<IconTextDocumentEdit />}
             >
               <span>Changelog</span>
             </Link>

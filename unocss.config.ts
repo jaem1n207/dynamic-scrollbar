@@ -148,8 +148,6 @@ export default defineConfig({
     ],
   ],
   shortcuts: {
-    'icon-btn':
-      'text-size-sm inline-block cursor-pointer select-none opacity-75 transition-color hover:opacity-100 hover:color-primary/90',
     container:
       'w-full mx-auto px-8 sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl',
     'interactive-focus-ring':

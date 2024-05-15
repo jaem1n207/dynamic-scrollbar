@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import '~/shared/styles';
+import './transition.css';
 import { TooltipProvider } from '~/shared/ui';
 import { Options } from './options';
 

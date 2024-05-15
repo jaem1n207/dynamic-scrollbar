@@ -1,0 +1,60 @@
+:root {
+  --eclipse: 60%;
+  --theme-transition-duration: 2s;
+}
+
+::view-transition-group(root) {
+  animation-duration: 0.5s;
+}
+::view-transition-new(root),
+::view-transition-old(root) {
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+  animation-name: none;
+}
+
+::view-transition-old(root) {
+  animation-name: reveal-light;
+  animation-duration: var(--theme-transition-duration);
+  z-index: 2;
+}
+.dark::view-transition-new(root) {
+  animation-name: reveal-dark;
+  animation-duration: var(--theme-transition-duration);
+  z-index: 3;
+}
+.dark::view-transition-old(root) {
+  animation-name: none;
+}
+
+@keyframes reveal-dark {
+  from {
+    clip-path: circle(var(--eclipse) at 200% -200%);
+    filter: brightness(0.2);
+  }
+  40% {
+    clip-path: circle(var(--eclipse) at 50% 50%);
+    filter: brightness(0.2);
+  }
+  to {
+    filter: brightness(1);
+    clip-path: circle(100% at 50% 50%);
+  }
+}
+
+@keyframes reveal-light {
+  0% {
+    filter: brightness(1);
+    clip-path: circle(100% at 50% 50%);
+  }
+  20% {
+    filter: brightness(0.2);
+    clip-path: circle(var(--eclipse) at 50% 50%);
+  }
+  100% {
+    filter: brightness(0.2);
+    clip-path: circle(var(--eclipse) at -200% 200%);
+  }
+}

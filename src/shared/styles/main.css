@@ -1,87 +1,27 @@
-* {
-  box-sizing: border-box;
-}
-
-html,
-body,
-#app {
-  margin: 0;
-  padding: 0;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  @apply text-balance;
-}
-
-p {
-  @apply text-pretty;
-}
-
-:root {
-  color-scheme: light only;
-  --eclipse: 60%;
-  --theme-transition-duration: 2s;
-}
-
-.dark {
-  color-scheme: dark only;
-}
-
-::view-transition-group(root) {
-  animation-duration: 0.5s;
-}
-::view-transition-new(root),
-::view-transition-old(root) {
-  mix-blend-mode: normal;
-}
-
-::view-transition-new(root) {
-  animation-name: none;
-}
-
-::view-transition-old(root) {
-  animation-name: reveal-light;
-  animation-duration: var(--theme-transition-duration);
-  z-index: 2;
-}
-.dark::view-transition-new(root) {
-  animation-name: reveal-dark;
-  animation-duration: var(--theme-transition-duration);
-  z-index: 3;
-}
-.dark::view-transition-old(root) {
-  animation-name: none;
-}
-
-@keyframes reveal-dark {
-  from {
-    clip-path: circle(var(--eclipse) at 200% -200%);
-    filter: brightness(0.2);
+@layer base {
+  html,
+  body,
+  #app {
+    margin: 0;
+    padding: 0;
   }
-  40% {
-    clip-path: circle(var(--eclipse) at 50% 50%);
-    filter: brightness(0.2);
-  }
-  to {
-    filter: brightness(1);
-    clip-path: circle(100% at 50% 50%);
-  }
-}
 
-@keyframes reveal-light {
-  0% {
-    filter: brightness(1);
-    clip-path: circle(100% at 50% 50%);
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-balance;
   }
-  20% {
-    filter: brightness(0.2);
-    clip-path: circle(var(--eclipse) at 50% 50%);
+
+  p {
+    @apply text-pretty;
   }
-  100% {
-    filter: brightness(0.2);
-    clip-path: circle(var(--eclipse) at -200% 200%);
+
+  :root {
+    color-scheme: light only;
+  }
+
+  .dark {
+    color-scheme: dark only;
   }
 }

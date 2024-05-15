@@ -6,7 +6,7 @@ import { generateErrorMessage } from 'zod-error';
 
 const envVariables = z.object({
   PORT: z.string().optional().default('3303').transform(Number),
-  NODE_ENV: z.enum(['development', 'production']).default('development'),
+  NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   EXTENSION: z.union([z.literal('firefox'), z.undefined()]).optional(),
 });
 

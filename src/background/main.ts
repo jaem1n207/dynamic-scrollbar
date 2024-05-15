@@ -14,6 +14,10 @@ browser.runtime.onInstalled.addListener((): void => {
   console.log('Extension installed');
 });
 
+browser.action.onClicked.addListener(() => {
+  browser.runtime.openOptionsPage();
+});
+
 let previousTabId = 0;
 
 // communication example: send previous tab title from background page

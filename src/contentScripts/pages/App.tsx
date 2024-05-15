@@ -1,33 +1,16 @@
-import IconPower from '~icons/pixelarticons/power';
-
+import IconCat from '~icons/arcticons/cats-and-soup';
 import 'uno.css';
 
-export default function App({ frameUrl }: { frameUrl: string }) {
-  const [open, setOpen] = useState(false);
-  const [openedOnce, setOpenedOnce] = useState(false);
+import { Button } from '~/shared/ui';
 
+export const App = () => {
   return (
     <div>
-      <div className="fixed left-0 bottom-0 m-5 z-100 flex font-sans select-none leading-1em">
-        <div
-          className="flex justify-center items-center w-10 h-10 rounded-full shadow cursor-pointer bg-blue-400 hover:bg-blue-600"
-          onClick={() => {
-            setOpen((open) => !open);
-            setOpenedOnce(true);
-          }}
-        >
-          <IconPower />
-        </div>
+      <div className="fixed right-0 bottom-0 m-5 z-99999 select-none">
+        <Button className="rounded-full">
+          <IconCat />
+        </Button>
       </div>
-      {openedOnce && (
-        <div
-          className={`fixed top-0 right-0 h-full w-1/4 z-50 drop-shadow-xl transition-transform ${
-            open ? 'translate-x-0' : 'translate-x-full'
-          }`}
-        >
-          <iframe src={frameUrl} className="w-full h-full border-0" />
-        </div>
-      )}
     </div>
   );
-}
+};

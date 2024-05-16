@@ -11,8 +11,8 @@ const titleVariants = cva(null, {
       primary: 'text-primary',
     },
     size: {
-      h1: 'leading-tight tracking-tight font-extrabold text-4xl md:text-5xl',
-      h2: 'leading-tight tracking-tight font-semibold text-3xl md:text-4xl',
+      h1: 'tracking-tight font-extrabold text-4xl md:text-5xl',
+      h2: 'tracking-tight font-semibold text-3xl md:text-4xl',
       h3: 'tracking-tight font-semibold text-2xl md:text-3xl',
       h4: 'font-semibold text-xl md:text-2xl',
     },

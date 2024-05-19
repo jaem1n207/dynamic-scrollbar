@@ -5,11 +5,13 @@ import { Button } from '~/shared/ui';
 
 export const App = () => {
   return (
-    <div>
-      <div className="fixed right-0 bottom-0 m-5 z-99999 select-none">
-        <Button className="rounded-full">
-          <IconCat />
-        </Button>
+    <div className="fixed h-dvh w-0 top-0 right-0 theme-blue">
+      <div className="absolute w-14 select-none top-0 right-0 transform-translate-x-0 transform-translate-y-80">
+        <div className="w-14 h-64 shadow-scrollbar-container rounded-6 cursor-pointer bg-primary transform-translate-x-0 transition-transform">
+          <Button className="size-full rounded-6!">
+            <IconCat />
+          </Button>
+        </div>
       </div>
     </div>
   );

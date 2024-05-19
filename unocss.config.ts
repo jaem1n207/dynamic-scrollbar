@@ -146,6 +146,13 @@ export default defineConfig({
         };
       },
     ],
+    [
+      'shadow-scrollbar-container',
+      {
+        'box-shadow':
+          'rgba(0, 0, 0, 0.4) 0px 0px 0.5px 0px, rgba(0, 0, 0, 0.09) 0px 1px 3px 0px, rgba(0, 0, 0, 0.09) 0px 4px 8px 0px',
+      },
+    ],
   ],
   shortcuts: {
     container:

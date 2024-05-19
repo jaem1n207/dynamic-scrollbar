@@ -119,6 +119,9 @@ importers:
       eslint-config-prettier:
         specifier: ^9.1.0
         version: 9.1.0(eslint@8.57.0)
+      eslint-plugin-fsd-internal:
+        specifier: link:./eslint/fsd
+        version: link:eslint/fsd
       eslint-plugin-react:
         specifier: ^7.34.1
         version: 7.34.1(eslint@8.57.0)

@@ -1,7 +1,7 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "react"],
+  "plugins": ["@typescript-eslint", "react", "fsd-internal"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
@@ -35,5 +35,11 @@
     "react/jsx-uses-react": "off",
     "react/no-unknown-property": "off",
     "@typescript-eslint/no-explicit-any": "off",
+    "fsd-internal/layer-imports": [
+      "error",
+      {
+        "alias": "~",
+      },
+    ],
   },
 }

@@ -4,7 +4,7 @@
   "displayName": "Dynamic Scrollbar",
   "version": "0.0.1",
   "packageManager": "pnpm@9.1.0",
-  "author": "jaemin <roy.jm.lee@gmail.com>",
+  "author": "bendd <tech.jmtt@gmail.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/jaem1n207/dynamic-scrollbar.git"

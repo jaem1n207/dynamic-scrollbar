@@ -1,7 +1,7 @@
-import { transitionViewIfSupported } from '~/shared/lib';
 import { useDark } from '~/entities/theme';
+import { transitionViewIfSupported } from '~/shared/lib';
 import { Button } from '~/shared/ui';
-import { usePrefersReducedMotion } from '~/shared/use/use-prefers-reduced-motion';
+import { usePrefersReducedMotion } from '~/shared/use';
 
 export const AppearanceSwitch = () => {
   const { isDark, toggleTheme } = useDark();

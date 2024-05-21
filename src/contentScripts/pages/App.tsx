@@ -1,29 +1,7 @@
-import IconCat from '~icons/arcticons/cats-and-soup';
 import 'uno.css';
 
-import { Button } from '~/shared/ui';
-
-const subscribeSystemFullscreen = (onStoreChange: () => void) => {
-  document.addEventListener('fullscreenchange', onStoreChange);
-
-  return () => document.removeEventListener('fullscreenchange', onStoreChange);
-};
-
-const getSystemFullscreenSnapshot = () => {
-  return document.fullscreenElement !== null;
-};
-
-const getServerSnapshot = () => {
-  return undefined;
-};
-
-const useSystemFullscreen = () => {
-  return useSyncExternalStore(
-    subscribeSystemFullscreen,
-    getSystemFullscreenSnapshot,
-    getServerSnapshot,
-  );
-};
+import { useSystemFullscreen } from '~/shared/use';
+import { DynamicScrollbar } from '~/features/dynamic-scrollbar';
 
 export const App = () => {
   const isFullScreen = useSystemFullscreen();
@@ -33,12 +11,13 @@ export const App = () => {
   }
 
   return (
-    <div className="fixed h-dvh w-0 top-0 right-0 theme-blue">
-      <div className="absolute w-14 select-none top-0 right-0 transform-translate-x-0 transform-translate-y-80">
-        <div className="w-14 h-64 shadow-scrollbar-container rounded-6 cursor-pointer bg-primary transform-translate-x-0 transition-transform">
-          <Button className="size-full rounded-6!">
+    <div className="fixed h-dvh w-0 top-0 right-0 theme-slate">
+      <div className="absolute w-10 select-none top-0 right-0 transform-translate-x-0 transform-translate-y-80">
+        <div className="w-10 h-54 shadow-scrollbar-container rounded-6 transform-translate-x-0 transition-transform">
+          {/* <Button variant="secondary" className="size-full rounded-6!">
             <IconCat />
-          </Button>
+          </Button> */}
+          <DynamicScrollbar />
         </div>
       </div>
     </div>

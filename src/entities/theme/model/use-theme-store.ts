@@ -1,30 +1,22 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import type { Theme } from '~/entities/theme/types';
+import type { ThemePreference } from '../types';
 
-interface ThemeState {
-  theme: Theme;
-  isSystemDark: boolean;
-  toggleTheme: () => void;
+interface ThemePreferenceState {
+  preference: ThemePreference;
+  setPreference: (preference: ThemePreference) => void;
 }
 
-export const useThemeStore = create<ThemeState>()(
+/** 사용자의 선호 테마 저장 및 관리 */
+export const useThemePreferenceStore = create<ThemePreferenceState>()(
   persist(
-    (set, get) => ({
-      theme: 'system',
-      isSystemDark: false,
-      toggleTheme: () => {
-        const { theme, isSystemDark } = get();
-        if (theme === 'system') {
-          set({ theme: isSystemDark ? 'light' : 'dark' });
-        } else {
-          set({ theme: 'system' });
-        }
-      },
+    (set) => ({
+      preference: 'system',
+      setPreference: (preference: ThemePreference) => set({ preference }),
     }),
     {
-      name: 'theme',
+      name: 'theme-preference',
     },
   ),
 );

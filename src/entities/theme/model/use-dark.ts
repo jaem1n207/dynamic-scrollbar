@@ -1,28 +1,24 @@
-import { useThemeStore } from '~/entities/theme';
 import { useSystemDark } from '~/entities/theme/model/use-system-dark';
-import type { Theme } from '~/entities/theme/types';
+import { useThemePreferenceStore } from '~/entities/theme/model/use-theme-store';
+import { getEffectiveTheme, getNextTheme } from '../utils/theme-utils';
 
-const isDarkMode = (theme?: Theme | null, isSystemDark?: boolean | null) => {
-  return theme === 'dark' || (!!isSystemDark && theme !== 'light');
-};
+export const useDark = (): { isDark: boolean; toggleTheme: () => void } => {
+  const { preference, setPreference } = useThemePreferenceStore();
+  const isSystemDark = useSystemDark() || false;
 
-export const useDark = () => {
-  const theme = useThemeStore((state) => state.theme);
-  const toggleTheme = useThemeStore((state) => state.toggleTheme);
-  const isSystemDark = useSystemDark();
+  const effectiveTheme = useMemo(
+    () => getEffectiveTheme(preference, isSystemDark),
+    [preference, isSystemDark],
+  );
+
+  const toggleTheme = useCallback(() => {
+    const nextPreference = getNextTheme(preference, isSystemDark);
+    setPreference(nextPreference);
+  }, [preference, isSystemDark, setPreference]);
 
   useEffect(() => {
-    useThemeStore.setState({ isSystemDark });
-  }, [isSystemDark]);
+    document.documentElement.classList.toggle('dark', effectiveTheme === 'dark');
+  }, [effectiveTheme]);
 
-  const isDark = useMemo(() => isDarkMode(theme, isSystemDark), [theme, isSystemDark]);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', isDark);
-    if ((theme === 'dark' && isSystemDark) || (theme === 'light' && !isSystemDark)) {
-      toggleTheme();
-    }
-  }, [isDark, theme, isSystemDark, toggleTheme]);
-
-  return { isDark, toggleTheme };
+  return { isDark: effectiveTheme === 'dark', toggleTheme };
 };

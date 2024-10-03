@@ -51,7 +51,8 @@ export async function getManifest(): Promise<Manifest.WebExtensionManifest> {
     content_security_policy: {
       extension_pages: isDev
         ? // this is required on dev for Vite script to load
-          `script-src 'self' http://localhost:${port}; object-src 'self'`
+          // eslint-disable-next-line no-useless-escape
+          `script-src \'self\' http://localhost:${port}; object-src \'self\'`
         : "script-src 'self'; object-src 'self'",
     },
   };
